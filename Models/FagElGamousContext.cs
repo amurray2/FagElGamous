@@ -10,13 +10,18 @@ namespace FagElGamous.Models
 {
     public partial class FagElGamousContext : DbContext
     {
-        public FagElGamousContext()
-        {
-        }
 
         public FagElGamousContext(DbContextOptions<FagElGamousContext> options)
             : base(options)
         {
+        }
+        public FagElGamousContext()
+        {
+        }
+
+        public static FagElGamousContext Create()
+        {
+            return new FagElGamousContext();
         }
 
         public virtual DbSet<Artifacts> Artifacts { get; set; }
