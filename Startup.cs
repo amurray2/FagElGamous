@@ -1,3 +1,4 @@
+using FagElGamous.Areas.Identity.Data;
 using FagElGamous.Data;
 using FagElGamous.Models;
 using Microsoft.AspNetCore.Builder;
@@ -32,12 +33,26 @@ namespace FagElGamous
                 options.UseSqlServer(
                     //Configuration.GetConnectionString("FagElGamousConnection")));
                     Helpers.GetRDSConnectionString()));
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            services.AddDbContext<UserLoginContext>(options =>
+                    options.UseSqlServer(
+                        //context.Configuration.GetConnectionString("UserLoginContextConnection")));
+                        Helpers.GetRDSConnectionString()));
+            services.AddIdentity<FagElGamousUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<UserLoginContext>()
+                .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("readpolicy",
+                    builder => builder.RequireRole("SuperUser", "Researcher", "User"));
+                options.AddPolicy("writepolicy",
+                    builder => builder.RequireRole("SuperUser"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
