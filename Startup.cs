@@ -30,7 +30,8 @@ namespace FagElGamous
         {
             services.AddDbContext<FagElGamousContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("FagElGamousConnection")));
+                    //Configuration.GetConnectionString("FagElGamousConnection")));
+                    Helpers.GetRDSConnectionString()));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
