@@ -2,11 +2,13 @@
     ViewData["Title"] = "Index";
 }
 @using FagElGamous.Areas.Identity.Data
+@using FagElGamous.Areas.Identity.Pages.Account
 
 @model IEnumerable<FagElGamousUser>
 
 <h1>List of Roles</h1>
 <a asp-action="Create">Create</a>
+<a href="~/Areas/Identity/Pages/Account/EditUser">EditRole</a>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -21,6 +23,7 @@
         {
         <tr>
             <td>@usr.Email</td>
+            <td></td>
             <td>
                 <form asp-action="editUserForm" method="post" asp-controller="Role">
                     <button class="btn btn-sm btn-primary" type="submit">Edit</button>
