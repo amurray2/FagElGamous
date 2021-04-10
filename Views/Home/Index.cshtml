@@ -2,19 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 @model IEnumerable<Location>
-    <div class="text-left">
-        <br />
-        <br />
-        <br />
-        <h3>BYU Egypt Excavation Project</h3>
-        <br />
-        <h1>Fag el-Gamous Cemetary Database</h1>
-        <br />
-        <div max-width="50px">
-            <p>Fag el-Gamous (which means Way of the Water Buffalo) is a large and important cemetery <br /> in Egypt that has been under archeological investigation (primarily by BYU researchers) <br /> for over 25 years. During multiple years of study, researchers have excavated <br /> more than 1,000 mummies. </p>
+<div class="text-left">
+    <br />
+    <br />
+    <br />
+    <h3>BYU Egypt Excavation Project</h3>
+    <br />
+    <h1>Fag el-Gamous Cemetary Database</h1>
+    <br />
+
+    <div class="row">
+        <div class="col">
+            <div>
+                <p>Fag el-Gamous (which means Way of the Water Buffalo) is a large and important cemetery in Egypt that has been under archeological investigation (primarily by BYU researchers) for over 25 years. During multiple years of study, researchers have excavated more than 1,000 mummies. </p>
+            </div>
+            <br />
+            <form method="get" asp-controller="Home" asp-action="Burial">
+                <button class="btn-primary" style="font-size:large" type="submit">View Burials</button>
+            </form>
         </div>
-        <br />
-        <form method="get" asp-controller="Home" asp-action="Burial">
-            <button class="btn-primary" type="submit">View Burials</button>
-        </form>
+        <div class="col">
+            <img width="700" src="~/img/Egypt.PNG" />
+        </div>
     </div>
+
+
+
+
+</div>
+
