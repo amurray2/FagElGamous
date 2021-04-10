@@ -1,0 +1,47 @@
+﻿
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+@model FagElGamous.Areas.Identity.Data.FagElGamousUser
+
+<h1>@ViewData["Title"]</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <p>I work</p>
+                <form asp-action="editUser" asp-controller="Role" method="post">
+                    <h4>Create a new account.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@Model.UserFirstName"></label>
+                        <input asp-for="@Model.UserFirstName" class="form-control" />
+                        <span asp-validation-for="@Model.UserFirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.UserLastName:"></label>
+                        <input asp-for="@Model.UserLastName" class="form-control" />
+                        <span asp-validation-for="@Model.UserLastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Email"></label>
+                        <input asp-for="@Model.Email" class="form-control" />
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                        <label asp-for="@Model.Password"></label>
+                        <input asp-for="@Model.Password" class="form-control" />
+                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    </div>*@
+                    @*<div class="form-group">
+            <label asp-for="@Model.Name"></label>
+            <select asp-for="@Model.Name" class="form-control" asp-items='new SelectList(roles, "Id", "Name")'>
+            </select>
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>*@
+                    <button class="btn btn-sm btn-primary" type="submit">Updaye</button>
+                    <input type="hidden" value="@Model.Id" name="userId" />
+                </form>
+            </div>
+        </div>

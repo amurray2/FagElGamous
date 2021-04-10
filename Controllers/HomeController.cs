@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FagElGamous.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FagElGamous.Controllers
 {
@@ -44,6 +45,7 @@ namespace FagElGamous.Controllers
             return View(query);
         }
 
+        [Authorize(Policy = "adminPolicy")]
         [HttpGet]
         public IActionResult AddBurial()
         {
