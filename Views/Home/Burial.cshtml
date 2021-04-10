@@ -27,7 +27,7 @@
         <!--Info about each burial inside bootstrap card-->
         <div class="col">
             <br />
-            <h5>Burial Metrics</h5>
+            <h5>Metrics</h5>
             <p>South to Head: @b.SouthToHead meters </p>
             <p>South to Feet: @b.SouthToFeet meters </p>
             <p>West to Head: @b.WestToHead meters </p>
@@ -56,7 +56,23 @@
             <h5>Additional Information</h5>
             <p>Shaft</p>
             <p>Hair Color: @b.HairColor</p>
+
             <p>Age Code: @b.AgeCodeSingle</p>
+
+            @if (b.AgeCodeSingle == "C")
+            {
+                <p>Age: Child</p>
+            }
+            else if (b.AgeCodeSingle == "A")
+            {
+                <p>Age: Adult</p>
+            }
+            else if (b.AgeCodeSingle == "N/I")
+            {
+                <p>Age: Neonate/Infant</p>
+            }
+
+
             @if (b.TextileTaken == true)
             {
                 <p>Textile Taken: Yes</p>
@@ -66,9 +82,17 @@
                 <p>Textile Taken: No</p>
             }
             <p>Initials of Data Entry Expert: @b.InitialsOfDataEntryExpert</p>
-            <p>Date Found: @b.MonthFound/@b.DayFound/@b.YearFound</p>
+            @if (b.MonthFound == null)
+            {
+                <p>Date Found: No date recorded</p>
+            }
+            else
+            {
+                <p>Date Found: @b.MonthFound/@b.DayFound/@b.YearFound</p>
+            }
         </div>
     </div>
+
     <!--Buttons to view additional information about burial-->
     <div>
         <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">

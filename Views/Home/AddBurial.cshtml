@@ -14,9 +14,11 @@
 
 <h4>Location</h4>
 
+<!--
 <form method="get" asp-controller="Home" asp-action="AddLocation">
     <button class="btn btn-secondary" type="submit">Add New Location</button>
 </form>
+    -->
 <br />
 
 <form method="post" asp-controller="Home" asp-action="AddBurial">
@@ -31,6 +33,7 @@
                 }
             </select>
         </div>
+        <a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">New Location</a>
         <div class="form-group col">
             <label asp-for="@Model.Burial.BurialNumber">Burial Number</label>
             <input class="form-control" type="number" asp-for="@Model.Burial.BurialNumber" />
