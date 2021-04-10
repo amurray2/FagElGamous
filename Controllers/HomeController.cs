@@ -82,6 +82,25 @@ namespace FagElGamous.Controllers
             //Return Success page.
             return View();
         }
+        [HttpGet]
+        public IActionResult Artifact(int BurialId)
+        {
+            TempData["BurialId"] = BurialId;
+            return View(context.Artifacts.Where(a => a.BurialId == BurialId));
+        }
+        [HttpGet]
+        public IActionResult AddArtifact()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddArtifact(Artifacts a)
+        {
+            a.BurialId = (int)TempData["BurialId"];
+            context.Artifacts.Add(a);
+            context.SaveChanges();
+            return RedirectToAction("Artifact", new { BurialId = a.BurialId });
+        }
 
         public IActionResult Privacy()
         {
