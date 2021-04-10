@@ -35,11 +35,7 @@ namespace FagElGamous.Controllers
         [HttpGet]
         public IActionResult Burial()
         {
-
-            //IQueryable<ToDo> query = context.ToDos
-            //    .Include(t => t.Category).Include(t => t.Status);
-
-            IQueryable<Burial> query = context.Burial.Include(b => b.Location).Include(b => b.Preservation);
+            IQueryable<Burial> query = context.Burial.Include(b => b.Location);
 
             return View(query);
         }
@@ -55,7 +51,13 @@ namespace FagElGamous.Controllers
         [HttpPost]
         public IActionResult AddBurial(BurialViewModel b, int LocationId, DateTime date)
         {
-            return View();
+            b.Burial.LocationId = LocationId;
+            b.Burial.DayFound = date.ToString("dd");
+            b.Burial.MonthFound = date.ToString("MM");
+            b.Burial.YearFound = date.ToString("yyyy");
+            context.Burial.Add(b.Burial);
+            //context.SaveChanges();
+            return RedirectToAction("AddBurial");
         }
 
         [HttpGet]
@@ -76,7 +78,7 @@ namespace FagElGamous.Controllers
                 }
             }
             context.Location.Add(l);
-            context.SaveChanges();
+            //context.SaveChanges();
             //Return Success page.
             return View();
         }
