@@ -14,11 +14,12 @@
             <p>@l.LocationString @b.BurialNumber</p>
         }
     }*@
+
 @foreach (var b in Model)
 {
-    <div class="card" style="width: 18rem;">
-        <p class="card-text">Burial ID = @b.Location.LocationString @b.BurialNumber</p>
-        <p class="card-text">Burial Metrics = @b.SouthToHead, @b.SouthToFeet, @b.WestToHead, @b.BurialDepth, @b.LengthOfRemains</p>
+    <div class="card">
+        <p class="card-text">Burial ID: @b.Location.LocationString @b.BurialNumber</p>
+        <p class="card-text">Burial Metrics: @b.SouthToHead, @b.SouthToFeet, @b.WestToHead, @b.BurialDepth, @b.LengthOfRemains</p>
         <p>Photo</p>
         <p>@b.ArtifactFound</p>
         <p>Shaft</p>
@@ -29,7 +30,7 @@
         <p>@b.MonthFound/@b.DayFound/@b.YearFound</p>
         <br />
         <form method="get" asp-action="Artifact" asp-controller="Home">
-            <button type="submit">See Burial's Artifacts</button>
+            <button class="btn-primary" type="submit">View Artifacts</button>
         </form>
     </div>
     <br />
