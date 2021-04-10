@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IQueryable<Burial>
+@*Not Exactly Sure What we need to put on this page but probably just the majority of the Essential Exhumation Data.*@
+<br />
+<br />
+@*@foreach (var l in Model)
+    {
+        @foreach(var b in l.Burial)
+        {
+            <p>@l.LocationString @b.BurialNumber</p>
+        }
+    }*@
+@foreach (var b in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <p class="card-text">Burial ID = @b.Location.LocationString @b.BurialNumber</p>
+        <p class="card-text">Burial Metrics = @b.SouthToHead, @b.SouthToFeet, @b.WestToHead, @b.BurialDepth, @b.LengthOfRemains</p>
+        <p>Photo</p>
+        <p>@b.ArtifactFound</p>
+        <p>Shaft</p>
+        @if (b.Preservation == null)
+        {
+            <p>No Preservation</p>
+        }
+        else
+        {
+            <p>@b.Preservation.PreservationIndex</p>
+        }
+        <p>@b.HairColor</p>
+        <p>@b.AgeCodeSingle</p>
+        <p>@b.TextileTaken</p>
+        <p>@b.InitialsOfDataEntryExpert</p>
+        <p>@b.MonthExcav @b.YearExcav</p>
+    </div>
+    <br />
+}
