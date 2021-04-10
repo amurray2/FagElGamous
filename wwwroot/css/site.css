@@ -8,6 +8,10 @@ h3 {
     font-weight: normal;
 }
 
+h5 {
+    color: #76A768;
+}
+
 
 
 .nav-link {
@@ -50,9 +54,6 @@ a {
     padding: 15px 32px;
 }
 
-
-
-
 .btn-primary:hover {
     background-color: #C0A534; /* mustard yellow */
     color: white;
@@ -72,6 +73,38 @@ a {
     color: white;
     border-color: #C0A534;
 }
+
+
+.btn-secondary {
+    color: #FFFFFF;
+    font-size: medium;
+    font-weight: bold;
+    background-color: #E07B5D;
+    border-color: #E07B5D;
+}
+
+    .btn-secondary:hover {
+        background-color: #C0A534; /* mustard yellow */
+        color: white;
+        border-color: #C0A534;
+    }
+
+    .btn-secondary:active {
+        background-color: #C0A534 !important; /* mustard yellow */
+        outline-color: #C0A534 !important;
+        color: white;
+        border-color: #C0A534;
+    }
+
+    .btn-secondary:focus {
+        background-color: #C0A534 !important; /* mustard yellow */
+        outline-color: #C0A534 !important;
+        color: white;
+        border-color: #C0A534;
+    }
+
+
+
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
