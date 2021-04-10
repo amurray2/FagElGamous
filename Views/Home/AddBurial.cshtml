@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BurialViewModel
+
+<form method="get" asp-controller="Home" asp-action="AddLocation">
+    <button class="btn-primary" type="submit">Add New Burial Location</button>
+</form>
+<br />
+<br />
+<form method="post" asp-controller="Home" asp-action="AddBurial">
+    <label name="LocationId">Burial Location N/S</label>
+    <select name="LocationId">
+        @foreach (var l in Model.Location)
+        {
+            <option value="@l.LocationId">@l.LocationString</option>
+        }
+    </select>
+    <br />
+    <label asp-for="@Model.Burial.BurialNumber">Burial Number</label>
+    <input type="number" asp-for="@Model.Burial.BurialNumber" />
+    <h3>Metrics</h3>
+    <label asp-for="@Model.Burial.SouthToHead">South to Head</label>
+    <input type="number" asp-for="@Model.Burial.SouthToHead" />M
+    <br />
+    <label asp-for="@Model.Burial.SouthToFeet">South to Feet</label>
+    <input type="number" asp-for="@Model.Burial.SouthToFeet" />M
+    <br />
+    <label asp-for="@Model.Burial.WestToHead">West to Head</label>
+    <input type="number" asp-for="@Model.Burial.WestToHead" />M
+    <br />
+    <label asp-for="@Model.Burial.WestToFeet">West to Feet</label>
+    <input type="number" asp-for="@Model.Burial.WestToFeet" />M
+    <br />
+    <label asp-for="@Model.Burial.LengthOfRemains">Length</label>
+    <input type="number" asp-for="@Model.Burial.LengthOfRemains" />M
+    <br />
+    <label asp-for="@Model.Burial.BurialDepth">Depth</label>
+    <input type="number" asp-for="@Model.Burial.BurialDepth" />M
+    <br />
+    <label>photo</label>
+    <br />
+    <label asp-for="@Model.Burial.ArtifactFound">Burial Goods</label>
+    <select asp-for="@Model.Burial.ArtifactFound">
+        <option value="true">Y</option>
+        <option value="false">N</option>
+    </select>
+    <br />
+    <label asp-for="@Model.Preservation.PreservationIndex">Preservation Index</label>
+    <select asp-for="@Model.Preservation.PreservationIndex">
+        <option value="I">I</option>
+        <option value="II">II</option>
+        <option value="III">III</option>
+        <option value="IV">IV</option>
+        <option value="V">V</option>
+    </select>
+    <br />
+    <label asp-for="@Model.Burial.HairColor">Hair Color</label>
+    <select asp-for="@Model.Burial.HairColor">
+        <option value="B">Brown/Dark Brown/Light Brown</option>
+        <option value="K">Black</option>
+        <option value="A">Brown-Red</option>
+        <option value="R">Red/Red-Bl</option>
+        <option value="D">Blonde</option>
+        <option value="U">Unknown</option>
+    </select>
+    <br />
+    <label asp-for="@Model.Burial.AgeCodeSingle">Age</label>
+    <select asp-for="@Model.Burial.AgeCodeSingle">
+        <option value="A">Adult</option>
+        <option value="C">Child</option>
+        <option value="N/I">Neonate/Infant</option>
+    </select>
+    <br />
+    <label asp-for="@Model.Burial.TextileTaken">Burial Materials</label>
+    <select asp-for="@Model.Burial.TextileTaken">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br />
+    <label asp-for="@Model.Burial.InitialsOfDataEntryExpert">Excavation Recorder Initials</label>
+    <input type="text" asp-for="@Model.Burial.InitialsOfDataEntryExpert" />
+    <br />
+    <label name="Date">Date Found</label>
+    <input type="date" />
+    <button class="btn-primary" type="submit">Add Burial</button>
+</form>

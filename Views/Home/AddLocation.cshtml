@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Location
+Add Location Form
+<form method="post" asp-controller="Home" asp-action="AddLocation" needs-validation>
+    <label asp-for="BurialLocationNs">Burial Location N/S</label>
+    <select asp-for="BurialLocationNs">
+        <option value="N">N</option>
+        <option value="S">S</option>
+    </select>
+    <br />
+    <label asp-for="HighPairNs">N/S High:</label>
+    <input type="number" asp-for="HighPairNs" required/>
+    <br />
+    <label asp-for="LowPairNs">N/S Low:</label>
+    <input type="number" asp-for="LowPairNs" />
+    <br />
+    <label asp-for="BurialLocationEw">Burial Location N/S</label>
+    <select asp-for="BurialLocationEw">
+        <option value="E">E</option>
+        <option value="W">W</option>
+    </select>
+    <br />
+    <label asp-for="HighPairEw">E/W High:</label>
+    <input type="number" asp-for="HighPairEw" />
+    <br />
+    <label asp-for="LowPairEw">E/W Low:</label>
+    <input type="number" asp-for="LowPairEw" />
+    <br />
+    <label asp-for="BurialSubplot">Area Subplot</label>
+    <select asp-for="BurialSubplot">
+        <option value="SE">SE</option>
+        <option value="NE">NE</option>
+        <option value="SW">SW</option>
+        <option value="NW">NW</option>
+    </select>
+    <br />
+    <br />
+    <button class="btn-primary" type="submit">Add New Burial Location</button>
+</form>
