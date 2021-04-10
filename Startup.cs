@@ -48,9 +48,11 @@ namespace FagElGamous
             services.AddRazorPages();
 
             services.AddAuthorization(options => {
-                options.AddPolicy("readpolicy",
+                //access for researcher
+                options.AddPolicy("researcherPolicy",
                     builder => builder.RequireRole("SuperUser", "Researcher", "User"));
-                options.AddPolicy("writepolicy",
+                //access for SuperUser
+                options.AddPolicy("adminPolicy",
                     builder => builder.RequireRole("SuperUser"));
             });
         }
