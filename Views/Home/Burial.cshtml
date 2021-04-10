@@ -33,6 +33,14 @@
             <input type="hidden" name="BurialId" value="@b.BurialId" />
             <button class="btn-primary" type="submit">View Artifacts</button>
         </form>
+        <form method="get" asp-action="BiologicalSample" asp-controller="Home">
+            <input type="hidden" name="BurialId" value="@b.BurialId" />
+            <button class="btn-primary" type="submit">View Biological</button>
+        </form>
+        <form method="get" asp-action="C14Sample" asp-controller="Home">
+            <input type="hidden" name="BurialId" value="@b.BurialId" />
+            <button class="btn-primary" type="submit">View C14</button>
+        </form>
     </div>
     <br />
 
