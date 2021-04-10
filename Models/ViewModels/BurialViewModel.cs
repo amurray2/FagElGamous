@@ -9,6 +9,5 @@ namespace FagElGamous.Models.ViewModels
     {
         public IEnumerable<Location> Location { get; set; }
         public Burial Burial { get; set; }
-        public Preservation Preservation { get; set; }
     }
 }

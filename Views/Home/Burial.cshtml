@@ -22,19 +22,16 @@
         <p>Photo</p>
         <p>@b.ArtifactFound</p>
         <p>Shaft</p>
-        @if (b.Preservation == null)
-        {
-            <p>No Preservation</p>
-        }
-        else
-        {
-            <p>@b.Preservation.PreservationIndex</p>
-        }
         <p>@b.HairColor</p>
         <p>@b.AgeCodeSingle</p>
         <p>@b.TextileTaken</p>
         <p>@b.InitialsOfDataEntryExpert</p>
-        <p>@b.MonthExcav @b.YearExcav</p>
+        <p>@b.MonthFound/@b.DayFound/@b.YearFound</p>
+        <br />
+        <form method="get" asp-action="Artifact" asp-controller="Home">
+            <button type="submit">See Burial's Artifacts</button>
+        </form>
     </div>
     <br />
+
 }

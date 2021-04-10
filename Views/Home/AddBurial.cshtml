@@ -48,13 +48,10 @@
         <option value="false">N</option>
     </select>
     <br />
-    <label asp-for="@Model.Preservation.PreservationIndex">Preservation Index</label>
-    <select asp-for="@Model.Preservation.PreservationIndex">
-        <option value="I">I</option>
-        <option value="II">II</option>
-        <option value="III">III</option>
-        <option value="IV">IV</option>
-        <option value="V">V</option>
+    <label asp-for="@Model.Burial.HeadDirection">Head Direction</label>
+    <select asp-for="@Model.Burial.HeadDirection">
+        <option value="E">E</option>
+        <option value="W">W</option>
     </select>
     <br />
     <label asp-for="@Model.Burial.HairColor">Hair Color</label>
@@ -84,6 +81,7 @@
     <input type="text" asp-for="@Model.Burial.InitialsOfDataEntryExpert" />
     <br />
     <label name="Date">Date Found</label>
-    <input type="date" />
+    <input type="date" name="date"/>
+    <br />
     <button class="btn-primary" type="submit">Add Burial</button>
 </form>
