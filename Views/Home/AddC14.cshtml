@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model C14Sample
+<br />
+<form method="post" asp-controller="Home" asp-action="AddC14">
+    <label asp-for="RackNum">Rack Num</label>
+    <input type="number" asp-for="RackNum" />
+    <br />
+    <label asp-for="TubeNum">Tube Num</label>
+    <input type="number" asp-for="TubeNum" />
+    <br />
+    <label asp-for="Description">Description</label>
+    <input type="text" asp-for="Description" />
+    <br />
+    <label asp-for="Location">Location</label>
+    <input type="text" asp-for="Location" />
+    <br />
+    <label asp-for="Questions">Questions</label>
+    <textarea asp-for="Questions"></textarea>
+    <br />
+    <label asp-for="Conventia14cAgeBp">Convential 14C age BP</label>
+    <input type="number" asp-for="Conventia14cAgeBp" />
+    <br />
+    <label asp-for="_14cCalendarDate">14C Calender Date</label>
+    <input type="number" asp-for="_14cCalendarDate" />
+    <br />
+    @*These 2 fields are required*@
+    <label asp-for="Calibrated95CalendarDateMax">Calibrated 95% Calendar Date MAX</label>
+    <input type="number" asp-for="Calibrated95CalendarDateMax" required/>
+    <br />
+    <label asp-for="Calibrated95CalendarDateMin">Calibrated 95% Calendar Date Min</label>
+    <input type="number" asp-for="Calibrated95CalendarDateMin" required/>
+    <br />
+    <label asp-for="Category">Category</label>
+    <input type="text" asp-for="Category"/>
+    <br />
+    <label asp-for="Notes">Notes</label>
+    <textarea asp-for="Notes"></textarea>
+    <br />
+    <button type="submit">Add C14 Sample</button>
+</form>

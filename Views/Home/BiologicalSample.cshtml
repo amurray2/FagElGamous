@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BiologicalSampleViewModel
+
+<h1>@Model.Location.LocationString #@Model.Burial.BurialNumber Biological Samples</h1>
+<br />
+@if (Model.BiologicalSamples.Count() <= 0)
+{
+    <p>This Burials does not have any Biol.</p>
+    <form method="get" asp-controller="Home" asp-action="AddBioSample">
+        <button type="submit">Add Biological Sample</button>
+    </form>
+}
+else
+{
+
+    @foreach (var bs in Model.BiologicalSamples)
+    {
+        <ul>
+            <li>Rack Num = @bs.RackNum</li>
+            <li>Bag Num = @bs.BagNum</li>
+            <li>Previously Sample = @bs.PreviouslySampled</li>
+            <li>Notes = @bs.Notes</li>
+            <li>Initials = @bs.Initials</li>
+        </ul>
+        <br />
+    }
+
+    <form method="get" asp-controller="Home" asp-action="AddBioSample">
+        <button type="submit">Add Biological Sample</button>
+    </form>
+}

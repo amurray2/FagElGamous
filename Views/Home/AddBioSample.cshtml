@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BiologicalSample
+
+<h1>Add Biological Sample Here</h1>
+<br />
+<br />
+<form method="post" asp-controller="Home" asp-action="AddBioSample">
+    <label asp-for="RackNum">Rack Number</label>
+    <input type="number" asp-for="RackNum" />
+    <br />
+    <label asp-for="BagNum">Bag Number</label>
+    <input type="number" asp-for="BagNum" />
+    <br />
+    <label asp-for="PreviouslySampled">Previously Sampled</label>
+    <select asp-for="PreviouslySampled">
+        <option value="true">Y</option>
+        <option value="false">N</option>
+    </select>
+    <br />
+    <label asp-for="Notes">Notes</label>
+    <textarea asp-for="Notes"></textarea>
+    <br />
+    <label asp-for="Initials">Initials</label>
+    <input type="text" asp-for="Initials"/>
+    <br />
+    <button type="submit">Add Biological Sample</button>
+</form>

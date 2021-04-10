@@ -1,0 +1,62 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model C14SampleViewModel
+<h1>@Model.Location.LocationString #@Model.Burial.BurialNumber C14 Samples</h1>
+<br />
+@if (Model.C14Samples.Count() <= 0)
+{
+    <p>This Burials does not have any C14 Samples.</p>
+    <form method="get" asp-controller="Home" asp-action="AddC14">
+        <button type="submit">Add C14 Sample</button>
+    </form>
+}
+else
+{
+<ul>
+    @foreach (var c in Model.C14Samples)
+    {
+        <li>Rack Num = @c.RackNum</li>
+        <li>Tube # = @c.TubeNum</li>
+        <li>Description = @c.Description</li>
+        <li>Location = @c.Location</li>
+        <li>Questions = @c.Questions</li>
+        <li>Conventional 14C age BP = @c.Conventia14cAgeBp</li>
+        if (c._14cCalendarDate < 0)
+        {
+            <li>14C Calender Date = @(c._14cCalendarDate * (-1)) BC</li>
+        }
+        else
+        {
+            <li>14C Clalender Date = @c._14cCalendarDate</li>
+        }
+        if (c.Calibrated95CalendarDateMax < 0)
+        {
+            <li>Calibrated 95% Calender Date Max = @(c.Calibrated95CalendarDateMax * (-1)) BC</li>
+        }
+        else
+        {
+            <li>Calibrated 95% Calender Date Max = @(c.Calibrated95CalendarDateMax)</li>
+        }
+        if (c.Calibrated95CalendarDateMin < 0)
+        {
+            <li>Calibrated 95% Calender Date Min = @(c.Calibrated95CalendarDateMin * (-1)) BC</li>
+        }
+        else
+        {
+            <li>Calibrated 95% Calender Date Min = @(c.Calibrated95CalendarDateMin)</li>
+        }
+        <li>Calibrated 95% Calender Date Span = @(c.Calibrated95CalendarDateSpan)</li>
+        <li>Calibrated 95% Calender Date AVG = @c.Calibrated95CalendarDateAvg</li>
+        <li>Category = @c.Category</li>
+        <li>Notes = @c.Notes</li>
+    }
+</ul>
+    <br />
+    <form method="get" asp-controller="Home" asp-action="AddC14">
+        <button type="submit">Add C14 Sample</button>
+    </form>
+}
+
