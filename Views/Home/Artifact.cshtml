@@ -20,6 +20,18 @@ else
         @foreach (var a in Model.Artifacts)
         {
             <li>@a.ArtifactDescription</li>
+            <li>
+                <form method="get" asp-controller="Home" asp-action="EditArtifact">
+                    <input type="hidden" name="ArtifactId" value="@a.ArtifactId" />
+                    <button type="submit">Edit Sample</button>
+                </form>
+            </li>
+            <li>
+                <form method="post" asp-controller="Home" asp-action="DeleteArtifact">
+                    <input type="hidden" name="ArtifactId" value="@a.ArtifactId" />
+                    <button type="submit">Delete Sample</button>
+                </form>
+            </li>
         }
     </ul>
     <form method="get" asp-controller="Home" asp-action="AddArtifact">

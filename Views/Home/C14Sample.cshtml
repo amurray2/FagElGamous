@@ -52,6 +52,18 @@ else
         <li>Calibrated 95% Calender Date AVG = @c.Calibrated95CalendarDateAvg</li>
         <li>Category = @c.Category</li>
         <li>Notes = @c.Notes</li>
+        <li>
+            <form method="get" asp-controller="Home" asp-action="EditC14Sample">
+                <input type="hidden" name="C14Id" value="@c.C14SampleId" /> 
+                <button type="submit">Edit Sample</button>
+            </form>
+        </li>
+        <li>
+            <form method="post" asp-controller="Home" asp-action="DeleteC14Sample">
+                <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                <button type="submit">Delete Sample</button>
+            </form>
+        </li>
     }
 </ul>
     <br />
