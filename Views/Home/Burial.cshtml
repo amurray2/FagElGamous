@@ -57,8 +57,6 @@
             <p>Shaft</p>
             <p>Hair Color: @b.HairColor</p>
 
-            <p>Age Code: @b.AgeCodeSingle</p>
-
             @if (b.AgeCodeSingle == "C")
             {
                 <p>Age: Child</p>
@@ -70,6 +68,10 @@
             else if (b.AgeCodeSingle == "N/I")
             {
                 <p>Age: Neonate/Infant</p>
+            }
+            else
+            {
+                <p>Age: No age recorded</p>
             }
 
 
