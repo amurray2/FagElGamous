@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Artifacts
+<br />
+<form method="post" asp-controller="Home" asp-action="EditArtifact">
+    <label asp-for="ArtifactDescription">Artifact Found?</label>
+    <textarea asp-for="ArtifactDescription"></textarea>
+    <input type="hidden" asp-for="ArtifactId" />
+    <input type="hidden" asp-for="BurialId" />
+    <br />
+    <button class="btn btn-secondary" type="submit">Edit Artifact</button>
+</form>

@@ -25,6 +25,18 @@ else
             <li>Previously Sample = @bs.PreviouslySampled</li>
             <li>Notes = @bs.Notes</li>
             <li>Initials = @bs.Initials</li>
+            <li>
+                <form method="get" asp-controller="Home" asp-action="EditBioSample">
+                    <input type="hidden" name="BioId" value="@bs.BioSampleId" />
+                    <button type="submit">Edit Sample</button>
+                </form>
+            </li>
+            <li>
+                <form method="post" asp-controller="Home" asp-action="DeleteBioSample">
+                    <input type="hidden" name="BioId" value="@bs.BioSampleId" />
+                    <button type="submit">Delete Sample</button>
+                </form>
+            </li>
         </ul>
         <br />
     }

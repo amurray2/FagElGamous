@@ -61,6 +61,15 @@ namespace FagElGamous.Controllers
             //context.SaveChanges();
             return RedirectToAction("AddBurial");
         }
+        public IActionResult EditBurial(int BurialID)
+        {
+            return View(new BurialViewModel
+            {
+                Location = context.Location,
+                Burial = context.Burial.Single(b => b.BurialId == BurialID)
+            });
+
+        }
 
         [HttpGet]
         public IActionResult AddLocation()
@@ -71,7 +80,7 @@ namespace FagElGamous.Controllers
         public IActionResult AddLocation(Location l)
         {
             l.LocationString = l.BurialLocationNs + " " + l.LowPairNs + "/" + l.HighPairNs + " " + l.BurialLocationEw + " " + l.LowPairEw + "/" + l.HighPairEw + " " + l.BurialSubplot;
-            foreach(Location loc in context.Location)
+            foreach (Location loc in context.Location)
             {
                 if (l.LocationString == loc.LocationString)
                 {
@@ -91,7 +100,7 @@ namespace FagElGamous.Controllers
         {
             TempData["BurialId"] = BurialId;
             Burial burial = context.Burial.Single(b => b.BurialId == BurialId);
-            return View(new ArtifactViewModel { 
+            return View(new ArtifactViewModel {
                 Artifacts = context.Artifacts.Where(a => a.BurialId == BurialId),
                 Burial = burial,
                 Location = context.Location.Single(l => l.LocationId == burial.LocationId)
@@ -107,6 +116,19 @@ namespace FagElGamous.Controllers
         {
             a.BurialId = (int)TempData["BurialId"];
             context.Artifacts.Add(a);
+            context.SaveChanges();
+            return RedirectToAction("Artifact", new { BurialId = a.BurialId });
+        }
+        [HttpGet]
+        public IActionResult EditArtifact(int artifactId)
+        {
+            return View(context.Artifacts.Single(a => a.ArtifactId == artifactId));
+        }
+        [HttpPost]
+        public IActionResult EditArtifact(Artifacts a)
+        {
+            Artifacts newA = context.Artifacts.Single(art => art.ArtifactId == a.ArtifactId);
+            newA.ArtifactDescription = a.ArtifactDescription;
             context.SaveChanges();
             return RedirectToAction("Artifact", new { BurialId = a.BurialId });
         }
@@ -134,6 +156,23 @@ namespace FagElGamous.Controllers
         {
             bs.BurialId = (int)TempData["BurialId"];
             context.BiologicalSample.Add(bs);
+            //context.SaveChanges();
+            return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
+        }
+        [HttpGet]
+        public IActionResult EditBioSample(int BioId)
+        {
+            return View(context.BiologicalSample.Single(bs => bs.BioSampleId == BioId));
+        }
+        [HttpPost]
+        public IActionResult EditBioSample(BiologicalSample bs)
+        {
+            BiologicalSample newB = context.BiologicalSample.Single(b => b.BioSampleId == bs.BioSampleId);
+            newB.RackNum = bs.RackNum;
+            newB.BagNum = bs.BagNum;
+            newB.PreviouslySampled = bs.PreviouslySampled;
+            newB.Notes = bs.Notes;
+            newB.Initials = bs.Initials;
             //context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
@@ -180,6 +219,49 @@ namespace FagElGamous.Controllers
                 c.Calibrated95CalendarDateAvg = "0";
             }
             context.C14Sample.Add(c);
+            //context.SaveChanges();
+            return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
+        }
+        [HttpGet]
+        public IActionResult EditC14Sample(int C14Id)
+        {
+            C14Sample c = context.C14Sample.Single(c => c.C14SampleId == C14Id);
+            return View(c);
+        }
+        [HttpPost]
+        public IActionResult EditC14Sample(C14Sample c)
+        {
+            C14Sample newC = context.C14Sample.Single(c14 => c14.C14SampleId == c.C14SampleId);
+            newC.RackNum = c.RackNum;
+            newC.TubeNum = c.TubeNum;
+            newC.Description = c.Description;
+            newC.Location = c.Location;
+            newC.Questions = c.Questions;
+            newC.Conventia14cAgeBp = c.Conventia14cAgeBp;
+            newC._14cCalendarDate = c._14cCalendarDate;
+            newC.Calibrated95CalendarDateMax = c.Calibrated95CalendarDateMax;
+            newC.Calibrated95CalendarDateMin = c.Calibrated95CalendarDateMin;
+            newC.Calibrated95CalendarDateSpan = (int)Math.Abs((decimal)(newC.Calibrated95CalendarDateMax) - (decimal)(newC.Calibrated95CalendarDateMin));
+            decimal decAvg;
+            int Avg;
+            decAvg = ((decimal)newC.Calibrated95CalendarDateMax + (decimal)newC.Calibrated95CalendarDateMin) / 2;
+            //Avg = (int)Math.Ceiling(Math.Abs(((decimal)c.Calibrated95CalendarDateMax + (decimal)c.Calibrated95CalendarDateMin) / 2));
+            if (decAvg < 0)
+            {
+                Avg = (int)Math.Abs(Math.Floor(decAvg));
+                newC.Calibrated95CalendarDateAvg = Avg + " BC";
+            }
+            else if (decAvg > 0)
+            {
+                Avg = (int)Math.Ceiling(decAvg);
+                newC.Calibrated95CalendarDateAvg = Avg + "";
+            }
+            else
+            {
+                newC.Calibrated95CalendarDateAvg = "0";
+            }
+            newC.Category = c.Category;
+            newC.Notes = c.Notes;
             //context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
