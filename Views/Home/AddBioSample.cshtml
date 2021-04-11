@@ -4,28 +4,49 @@
 @{
 }
 @model BiologicalSample
+<br />
+<br />
+<h1 class="text-center">Add New Biological Sample</h1>
+<h3 class="text-center">LocationID</h3>
+<br />
+<br />
 
-<h1>Add Biological Sample Here</h1>
-<br />
-<br />
-<form method="post" asp-controller="Home" asp-action="AddBioSample">
-    <label asp-for="RackNum">Rack Number</label>
-    <input type="number" asp-for="RackNum" />
-    <br />
-    <label asp-for="BagNum">Bag Number</label>
-    <input type="number" asp-for="BagNum" />
-    <br />
-    <label asp-for="PreviouslySampled">Previously Sampled</label>
-    <select asp-for="PreviouslySampled">
-        <option value="true">Y</option>
-        <option value="false">N</option>
-    </select>
-    <br />
-    <label asp-for="Notes">Notes</label>
-    <textarea asp-for="Notes"></textarea>
-    <br />
-    <label asp-for="Initials">Initials</label>
-    <input type="text" asp-for="Initials"/>
-    <br />
-    <button type="submit">Add Biological Sample</button>
-</form>
+<div>
+    <form method="post" asp-controller="Home" asp-action="AddBioSample">
+
+        <div class="form-group">
+            <label asp-for="RackNum">Rack Number</label>
+            <input class="form-control" type="number" asp-for="RackNum" style="width: 500px;" />
+            <br />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BagNum">Bag Number</label>
+            <input class="form-control" type="number" asp-for="BagNum" style="width: 500px;" />
+            <br />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PreviouslySampled">Previously Sampled?</label>
+            <select class="form-control" asp-for="PreviouslySampled" style="width: 500px;">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            <br />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Notes">Notes</label>
+            <br />
+            <textarea class="form-control" asp-for="Notes" style="width: 500px;"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Initials">Sample Recorder Initials</label>
+            <input class="form-control" type="text" asp-for="Initials" maxlength="5" style="width: 500px;" />
+            <br />
+        </div>
+
+        <button class="btn btn-secondary" type="submit">Save Biological Sample</button>
+    </form>
+</div>
