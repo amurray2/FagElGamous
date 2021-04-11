@@ -5,9 +5,18 @@
 }
 @model Artifacts
 <br />
+<br />
+<h1 class="text-center">Add New Artifact</h1>
+<h3 class="text-center">LocationID</h3>
+<br />
+
+<br />
 <form method="post" asp-controller="Home" asp-action="AddArtifact">
-    <label asp-for="ArtifactDescription">Artifact Found?</label>
-    <textarea asp-for="ArtifactDescription"></textarea>
+    <div class="form-group">
+        <label asp-for="ArtifactDescription">Describe the artifact(s) found in the burial</label>
+        <br />
+        <textarea class="form-control" asp-for="ArtifactDescription"></textarea>
+    </div>
     <br />
-    <button class="btn btn-secondary" type="submit">Add Artifact</button>
+    <button class="btn btn-secondary" type="submit">Save Artifact</button>
 </form>

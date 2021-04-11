@@ -26,42 +26,43 @@
     <div class="row">
         <div class="form-group col">
             <label name="LocationId">Burial Location</label>
-            <select class="form-control" name="LocationId">
+            <select class="form-control" name="LocationId" required>
                 @foreach (var l in Model.Location)
                 {
                     <option value="@l.LocationId">@l.LocationString</option>
                 }
             </select>
         </div>
-        <a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">New Location</a>
         <div class="form-group col">
             <label asp-for="@Model.Burial.BurialNumber">Burial Number</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.BurialNumber" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.BurialNumber" required/>
         </div>
     </div>
-
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">New Location</a>
+    <br />
+    <br />
     <br />
     <h4>Metrics</h4>
 
     <div class="row">
         <div class="form-group col">
             <label asp-for="@Model.Burial.SouthToHead">South to Head</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.SouthToHead" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.SouthToHead" required/>
             <small class="form-text text-muted">Meters</small>
         </div>
         <div class="form-group col">
             <label asp-for="@Model.Burial.SouthToFeet">South to Feet</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.SouthToFeet" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.SouthToFeet" required/>
             <small class="form-text text-muted">Meters</small>
         </div>
         <div class="form-group col">
             <label asp-for="@Model.Burial.WestToHead">West to Head</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.WestToHead" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.WestToHead" required/>
             <small class="form-text text-muted">Meters</small>
         </div>
         <div class="form-group col">
             <label asp-for="@Model.Burial.WestToFeet">West to Feet</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.WestToFeet" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.WestToFeet" required/>
             <small class="form-text text-muted">Meters</small>
         </div>
     </div>
@@ -69,12 +70,12 @@
     <div class="row">
         <div class="form-group col">
             <label asp-for="@Model.Burial.LengthOfRemains">Length</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.LengthOfRemains" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.LengthOfRemains" required/>
             <small class="form-text text-muted">Meters</small>
         </div>
         <div class="form-group col">
             <label asp-for="@Model.Burial.BurialDepth">Depth</label>
-            <input class="form-control" type="number" asp-for="@Model.Burial.BurialDepth" />
+            <input class="form-control" type="number" asp-for="@Model.Burial.BurialDepth" required/>
             <small class="form-text text-muted">Meters</small>
         </div>
     </div>
@@ -86,14 +87,14 @@
     <div class="row">
         <div class="form-group col">
             <label asp-for="@Model.Burial.ArtifactFound">Burial Goods Found</label>
-            <select class="form-control" asp-for="@Model.Burial.ArtifactFound">
+            <select class="form-control" asp-for="@Model.Burial.ArtifactFound" required>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
             </select>
         </div>
         <div class="form-group col">
             <label asp-for="@Model.Burial.TextileTaken">Burial Materials Found</label>
-            <select class="form-control" asp-for="@Model.Burial.TextileTaken">
+            <select class="form-control" asp-for="@Model.Burial.TextileTaken" required>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
             </select>
@@ -103,7 +104,7 @@
     <div class="row">
         <div class="form-group col">
             <label asp-for="@Model.Burial.HairColor">Hair Color</label>
-            <select class="form-control" asp-for="@Model.Burial.HairColor">
+            <select class="form-control" asp-for="@Model.Burial.HairColor" required>
                 <option value="B">Brown / Dark Brown / Light Brown</option>
                 <option value="K">Black</option>
                 <option value="A">Brown-Red</option>
@@ -115,7 +116,7 @@
 
         <div class="form-group col">
             <label asp-for="@Model.Burial.AgeCodeSingle">Age</label>
-            <select class="form-control" asp-for="@Model.Burial.AgeCodeSingle">
+            <select class="form-control" asp-for="@Model.Burial.AgeCodeSingle" required>
                 <option value="A">Adult</option>
                 <option value="C">Child</option>
                 <option value="N/I">Neonate/Infant</option>
@@ -125,7 +126,7 @@
 
     <div class="form-group">
         <label asp-for="@Model.Burial.HeadDirection">Head Direction</label>
-        <select class="form-control" asp-for="@Model.Burial.HeadDirection">
+        <select class="form-control" asp-for="@Model.Burial.HeadDirection" required>
             <option value="E">East</option>
             <option value="W">West</option>
         </select>
@@ -142,13 +143,19 @@
 
     <div class="form-group">
         <label asp-for="@Model.Burial.InitialsOfDataEntryExpert">Excavation Recorder Initials</label>
-        <input maxlength="5" class="form-control" type="text" asp-for="@Model.Burial.InitialsOfDataEntryExpert" />
+        <input maxlength="5" class="form-control" type="text" asp-for="@Model.Burial.InitialsOfDataEntryExpert" required/>
     </div>
 
-    <div class="form-group">
-        <label name="Date">Date Found</label>
-        <input class="form-control" type="date" name="date" />
+    <div class="row">
+        <div class="form-group col-3">
+            <label name="Date">Date Found</label>
+            <input class="form-control" type="date" name="date" required/>
+        </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Save Burial</button>
+    <br />
+    <button class="btn btn-secondary" type="submit">Save Burial</button>
+    <br />
+    <br />
+    <br />
 </form>
