@@ -4,71 +4,142 @@
 @{
 }
 @model C14SampleViewModel
-<h1>@Model.Location.LocationString #@Model.Burial.BurialNumber C14 Samples</h1>
 <br />
-@if (Model.C14Samples.Count() <= 0)
-{
-    <p>This Burials does not have any C14 Samples.</p>
-    <form method="get" asp-controller="Home" asp-action="AddC14">
-        <button type="submit">Add C14 Sample</button>
-    </form>
-}
-else
-{
-<ul>
-    @foreach (var c in Model.C14Samples)
-    {
-        <li>Rack Num = @c.RackNum</li>
-        <li>Tube # = @c.TubeNum</li>
-        <li>Description = @c.Description</li>
-        <li>Location = @c.Location</li>
-        <li>Questions = @c.Questions</li>
-        <li>Conventional 14C age BP = @c.Conventia14cAgeBp</li>
-        if (c._14cCalendarDate < 0)
-        {
-            <li>14C Calender Date = @(c._14cCalendarDate * (-1)) BC</li>
-        }
-        else
-        {
-            <li>14C Clalender Date = @c._14cCalendarDate</li>
-        }
-        if (c.Calibrated95CalendarDateMax < 0)
-        {
-            <li>Calibrated 95% Calender Date Max = @(c.Calibrated95CalendarDateMax * (-1)) BC</li>
-        }
-        else
-        {
-            <li>Calibrated 95% Calender Date Max = @(c.Calibrated95CalendarDateMax)</li>
-        }
-        if (c.Calibrated95CalendarDateMin < 0)
-        {
-            <li>Calibrated 95% Calender Date Min = @(c.Calibrated95CalendarDateMin * (-1)) BC</li>
-        }
-        else
-        {
-            <li>Calibrated 95% Calender Date Min = @(c.Calibrated95CalendarDateMin)</li>
-        }
-        <li>Calibrated 95% Calender Date Span = @(c.Calibrated95CalendarDateSpan)</li>
-        <li>Calibrated 95% Calender Date AVG = @c.Calibrated95CalendarDateAvg</li>
-        <li>Category = @c.Category</li>
-        <li>Notes = @c.Notes</li>
-        <li>
-            <form method="get" asp-controller="Home" asp-action="EditC14Sample">
-                <input type="hidden" name="C14Id" value="@c.C14SampleId" /> 
-                <button type="submit">Edit Sample</button>
-            </form>
-        </li>
-        <li>
-            <form method="post" asp-controller="Home" asp-action="DeleteC14Sample">
-                <input type="hidden" name="C14Id" value="@c.C14SampleId" />
-                <button type="submit">Delete Sample</button>
-            </form>
-        </li>
-    }
-</ul>
+<br />
+<div class="text-center">
+    <h1>C14 Samples</h1>
+    <h3>@Model.Location.LocationString #@Model.Burial.BurialNumber</h3>
     <br />
     <form method="get" asp-controller="Home" asp-action="AddC14">
-        <button type="submit">Add C14 Sample</button>
+        <button class="btn btn-secondary" type="submit">Add C14 Sample</button>
     </form>
+    <br />
+</div>
+<br />
+
+
+@if (Model.C14Samples.Count() <= 0)
+{
+    <p class="text-center">This burial does not have any C14 samples.</p>
 }
+
+@*
+    else
+    {
+        <ul>
+            @foreach (var c in Model.C14Samples)
+            {
+                <li>Rack Num = @c.RackNum</li>
+                <li>Tube # = @c.TubeNum</li>
+                <li>Description = @c.Description</li>
+                <li>Location = @c.Location</li>
+                <li>Questions = @c.Questions</li>
+                <li>Conventional 14C age BP = @c.Conventia14cAgeBp</li>
+                if (c._14cCalendarDate < 0)
+                {
+                    <li>14C Calender Date = @(c._14cCalendarDate * (-1)) BC</li>
+                }
+                else
+                {
+                    <li>14C Clalender Date = @c._14cCalendarDate</li>
+                }
+                if (c.Calibrated95CalendarDateMax < 0)
+                {
+                    <li>Calibrated 95% Calender Date Max = @(c.Calibrated95CalendarDateMax * (-1)) BC</li>
+                }
+                else
+                {
+                    <li>Calibrated 95% Calender Date Max = @(c.Calibrated95CalendarDateMax)</li>
+                }
+                if (c.Calibrated95CalendarDateMin < 0)
+                {
+                    <li>Calibrated 95% Calender Date Min = @(c.Calibrated95CalendarDateMin * (-1)) BC</li>
+                }
+                else
+                {
+                    <li>Calibrated 95% Calender Date Min = @(c.Calibrated95CalendarDateMin)</li>
+                }
+                <li>Calibrated 95% Calender Date Span = @(c.Calibrated95CalendarDateSpan)</li>
+                <li>Calibrated 95% Calender Date AVG = @c.Calibrated95CalendarDateAvg</li>
+                <li>Category = @c.Category</li>
+                <li>Notes = @c.Notes</li>
+                <li>
+                    <form method="get" asp-controller="Home" asp-action="EditC14Sample">
+                        <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                        <button type="submit">Edit Sample</button>
+                    </form>
+                </li>
+                <li>
+                    <form method="post" asp-controller="Home" asp-action="DeleteC14Sample">
+                        <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                        <button type="submit">Delete Sample</button>
+                    </form>
+                </li>
+            }
+        </ul>
+        <br />
+        <form method="get" asp-controller="Home" asp-action="AddC14">
+            <button type="submit">Add C14 Sample</button>
+        </form>
+    }
+*@
+
+else
+{
+    @foreach (var c in Model.C14Samples)
+    {
+        <div class="card mx-auto">
+            <div class="card-body">
+                <p class="card-text">Rack Number: @c.RackNum</p>
+                <p class="card-text">Tube Number: @c.TubeNum</p>
+                <p class="card-text">Description: @c.Description</p>
+                <p class="card-text">Location: @c.Location</p>
+                <p class="card-text">Questions: @c.Questions</p>
+                <p class="card-text">Conventional 14C age BP: @c.Conventia14cAgeBp</p>
+                @if (c._14cCalendarDate < 0)
+                {
+                    <p class="card-text">14C Calendar Date: @(c._14cCalendarDate * (-1)) BC</p>
+                }
+                else
+                {
+                    <p class="card-text">14C Calendar Date: @c._14cCalendarDate</p>
+                }
+                @if (c.Calibrated95CalendarDateMax < 0)
+                {
+                    <p class="card-text">Calibrated 95% Calendar Date Max: @(c.Calibrated95CalendarDateMax * (-1)) BC</p>
+                }
+                else
+                {
+                    <p class="card-text">Calibrated 95% Calendar Date Max: @(c.Calibrated95CalendarDateMax)</p>
+                }
+                @if (c.Calibrated95CalendarDateMin < 0)
+                {
+                    <p class="card-text">Calibrated 95% Calendar Date Min: @(c.Calibrated95CalendarDateMin * (-1)) BC</p>
+                }
+                else
+                {
+                    <p class="card-text">Calibrated 95% Calendar Date Min: @(c.Calibrated95CalendarDateMin)</p>
+                }
+                <p class="card-text">Calibrated 95% Calendar Date Span: @(c.Calibrated95CalendarDateSpan)</p>
+                <p class="card-text">Calibrated 95% Calendar Date Average: @c.Calibrated95CalendarDateAvg</p>
+                <p class="card-text">Category: @c.Category</p>
+                <p class="card-text">Notes: @c.Notes</p>
+
+                <div class="btn-toolbar float-right">
+                    <form method="get" asp-controller="Home" asp-action="EditC14Sample">
+                        <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                        <button class="btn btn-info mr-2" type="submit">Edit</button>
+                    </form>
+
+                    <form method="post" asp-controller="Home" asp-action="DeleteC14Sample">
+                        <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+                <br />
+            </div>
+        </div>
+    }
+}
+
 
