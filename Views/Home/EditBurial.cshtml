@@ -15,7 +15,7 @@
 <br />
 <br />
 
-<h1 class="text-center">Add New Burial</h1>
+<h1 class="text-center">Edit Burial</h1>
 <br />
 
 <h4>Location</h4>
@@ -39,15 +39,17 @@
                 }
             </select>
         </div>
-        <a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">New Location</a>
         <div class="form-group col">
             <label asp-for="@Model.Burial.BurialNumber">Burial Number</label>
             <input class="form-control" type="number" asp-for="@Model.Burial.BurialNumber" />
         </div>
     </div>
-
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">New Location</a>
+    <br />
+    <br />
     <br />
     <h4>Metrics</h4>
+    <br />
 
     <div class="row">
         <div class="form-group col">
@@ -155,6 +157,9 @@
         <label name="Date">Date Found</label>
         <input class="form-control" type="date" name="date" />
     </div>
-
-    <button class="btn btn-primary" type="submit">Save Burial</button>
+    <br />
+    <button class="btn btn-secondary" type="submit">Save Changes</button>
+    <br />
+    <br />
+    <br />
 </form>

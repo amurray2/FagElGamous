@@ -18,16 +18,18 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <img width="100" class="logo" src="~/img/WaterBuffaloLogo.png" />
-            <div class="container">
+
+            <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    
+
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark no-margin" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Burial">View Burials</a>
@@ -45,23 +47,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
 
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+
+                            @if (SignInManager.IsSignedIn(User))
                             {
-                                <li class="dropdown nav-item">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                       Manage
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <a class="nav-link text-dark" asp-controller="Administration" asp-action="ListRoles">Manage User Roles</a>
-                                        <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Manage Accounts</a>
-                                    </ul>
-                                </li>
+                                @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                                {
+                                    <li class="dropdown nav-item">
+                                        <a class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" href="#">
+                                            Manage
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <a class="nav-link text-dark float-right" asp-controller="Administration" asp-action="ListRoles">Manage User Roles</a>
+                                            <a class="nav-link text-dark float-right" asp-controller="Role" asp-action="Index">Manage Accounts</a>
+                                        </ul>
+                                    </li>
+                                }
                             }
-                        }
-                        <partial name="_LoginPartial" />
+                            <partial name="_LoginPartial" />
+
                     </ul>
                 </div>
             </div>
