@@ -5,36 +5,75 @@
 }
 @model ArtifactViewModel
 
-<h1>@Model.Location.LocationString #@Model.Burial.BurialNumber Artifacts</h1>
 <br />
+<br />
+<div class="text-center">
+    <h1>Artifacts</h1>
+    <h3>@Model.Location.LocationString #@Model.Burial.BurialNumber</h3>
+</div>
+<br />
+
 @if (Model.Artifacts.Count() <= 0)
 {
-    <p>This Burials does not have any artifacts.</p>
+    <p>This burial does not have any artifacts.</p>
     <form method="get" asp-controller="Home" asp-action="AddArtifact">
-        <button type="submit">Add Artifact</button>
+        <button class="btn btn-secondary" type="submit">Add Artifact</button>
     </form>
 }
+@*else
+    {
+        <ul>
+            @foreach (var a in Model.Artifacts)
+            {
+                <li>@a.ArtifactDescription</li>
+                <li>
+                    <form method="get" asp-controller="Home" asp-action="EditArtifact">
+                        <input type="hidden" name="ArtifactId" value="@a.ArtifactId" />
+                        <button class="btn btn-secondary" type="submit">Edit Sample</button>
+                    </form>
+                </li>
+                <li>
+                    <form method="post" asp-controller="Home" asp-action="DeleteArtifact">
+                        <input type="hidden" name="ArtifactId" value="@a.ArtifactId" />
+                        <button class="btn btn-secondary" type="submit">Delete Sample</button>
+                    </form>
+                </li>
+            }
+        </ul>
+
+        <br />
+        <br />
+        <form method="get" asp-controller="Home" asp-action="AddArtifact">
+            <button class="btn btn-secondary" type="submit">Add Artifact</button>
+        </form>
+    }
+*@
 else
 {
-    <ul>
-        @foreach (var a in Model.Artifacts)
-        {
-            <li>@a.ArtifactDescription</li>
-            <li>
-                <form method="get" asp-controller="Home" asp-action="EditArtifact">
+    @foreach (var a in Model.Artifacts)
+    {
+        <div class="card card-outline-primary m-3 p-5 card mb-3">
+            <p>@a.ArtifactDescription</p>
+
+            <div>
+                <form style="display:inline-block" class="float-right" method="get" asp-controller="Home" asp-action="EditArtifact">
                     <input type="hidden" name="ArtifactId" value="@a.ArtifactId" />
-                    <button type="submit">Edit Sample</button>
+                    <button class="btn btn-secondary" type="submit">Edit</button>
                 </form>
-            </li>
-            <li>
-                <form method="post" asp-controller="Home" asp-action="DeleteArtifact">
+
+                <form style="display:inline-block" class="float-right" method="post" asp-controller="Home" asp-action="DeleteArtifact">
                     <input type="hidden" name="ArtifactId" value="@a.ArtifactId" />
-                    <button type="submit">Delete Sample</button>
+                    <button class="btn btn-secondary" type="submit">Delete</button>
                 </form>
-            </li>
-        }
-    </ul>
+            </div>
+        </div>
+    }
+    <br />
+    <br />
     <form method="get" asp-controller="Home" asp-action="AddArtifact">
-        <button type="submit">Add Artifact</button>
+        <button class="btn btn-secondary" type="submit">Add Artifact</button>
     </form>
+    <br />
+    <br />
 }
+
