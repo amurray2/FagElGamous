@@ -58,6 +58,15 @@ namespace FagElGamous.Controllers
             b.Burial.MonthFound = date.ToString("MM");
             b.Burial.YearFound = date.ToString("yyyy");
             context.Burial.Add(b.Burial);
+            //Location l = context.Location.Single(l => l.LocationId == LocationId);
+            foreach (Burial burial in context.Burial.Where(b => b.LocationId == LocationId))
+            {
+                if (burial.BurialNumber == b.Burial.BurialNumber)
+                {
+                    //return Burial already stored.
+                    return View("ErrorBurial");
+                }
+            }
             //context.SaveChanges();
             return RedirectToAction("AddBurial");
         }
@@ -154,13 +163,13 @@ namespace FagElGamous.Controllers
                 if (l.LocationString == loc.LocationString)
                 {
                     //Return Error Page for Location Already stored
-                    return View();
+                    return View("ErrorLocation");
                 }
             }
             context.Location.Add(l);
             //context.SaveChanges();
             //Return Success page.
-            return View();
+            return View("SuccessLocation");
         }
         [HttpGet]
         public IActionResult EditLocation(int LocationId)
@@ -184,13 +193,14 @@ namespace FagElGamous.Controllers
                 if (l.LocationString == loc.LocationString)
                 {
                     //Return Error Page for Location Already stored
-                    return View();
+                    return View("ErrorLocation");
                 }
             }
             newL.LocationString = l.LocationString;
             //context.SaveChanges();
-            return RedirectToAction("Locations");
+            return View("SuccessLocation");
         }
+        //Still wondering if we should allow users to do this.
         //[HttpPost]
         //public IActionResult DeleteLocation(int LocationId)
         //{
