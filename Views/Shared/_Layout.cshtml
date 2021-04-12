@@ -24,7 +24,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+                    
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -49,15 +49,19 @@
                         {
                             @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Create">Create Role</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role Index</a>
+                                <li class="dropdown nav-item">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                       Manage
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <a class="nav-link text-dark" asp-controller="Administration" asp-action="ListRoles">Manage User Roles</a>
+                                        <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Manage Accounts</a>
+                                    </ul>
                                 </li>
                             }
                         }
-
+                        <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
