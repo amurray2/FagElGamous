@@ -21,11 +21,26 @@
                 <h5 class="card-title">@role.Name</h5>
             </div>
             <div class="card-footer">
-                <a class="btn btn-primary" 
-                   asp-action="EditRole" 
-                   asp-controller="Administration" 
+                @*<form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">*@
+                <a class="btn btn-primary"
+                   asp-action="EditRole"
+                   asp-controller="Administration"
                    asp-route-id="@role.Id">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <a class="btn btn-primary"
+                   asp-action="DeleteRole"
+                   asp-controller="Administration"
+                   asp-route-id="@role.Id">Delete</a>
+
+                @*<span id="confirmDeleteSpan_@role.Id" style="display:none">
+            <span>Are you sure you want to delete?</span>
+            <button type="submit" class="btn btn-primary">Yes</button>
+            <a href="#" class="btn btn-primary" onclick="confimaDelete('@role.Id', false)">No</a>
+        </span>
+        <span id="deleteSpan_@role.Id">
+            <a href="#" class="btn btn-primary"
+               onclick="confirmDelete('@role.Id', true)">Delete</a>
+        </span>*@
+                @*</form>*@
             </div>
         </div>
     }
@@ -45,4 +60,8 @@ else
                asp-controller="administration" asp-action="CreateRole">Create Role</a>
         </div>
     </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
 }

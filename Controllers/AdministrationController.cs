@@ -154,7 +154,7 @@ namespace FagElGamous.Controllers
                 var user = await userManager.FindByIdAsync(model[i].UserId);
                 IdentityResult result = null;
 
-                //if the user is selected and isn't already in that rol, add them to the role
+                //if the user is selected and isn't already in that role, add them to the role
                 if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {
                     result = await userManager.AddToRoleAsync(user, role.Name);
@@ -182,5 +182,28 @@ namespace FagElGamous.Controllers
 
             return RedirectToAction("EditRole", new { Id = roleId });
         }
+
+        //delete role
+        [Authorize(Policy = "adminPolicy")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string roleId)
+        {
+            var role = await roleManager.FindByIdAsync(roleId);
+
+            var result = await roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ListRoles");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View("ListRoles");
+        }
+
     }
 }
