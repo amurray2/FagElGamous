@@ -21,9 +21,7 @@ namespace FagElGamous.Areas.Identity.Pages.Account.Manage
         {
             _userManager = userManager;
             _signInManager = signInManager;
-        }
-
-        public string Username { get; set; }
+        }  
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -33,21 +31,32 @@ namespace FagElGamous.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            public string Username { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(FagElGamousUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
+            var userFirst = user.UserFirstName;
+            var userLast = user.UserLastName;            
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                Username = userName,
+                PhoneNumber = phoneNumber,
+                FirstName = userFirst,
+                LastName = userLast
             };
         }
 
@@ -77,6 +86,13 @@ namespace FagElGamous.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            //functionality for udpdating first and last name
+            user.UserFirstName = Input.FirstName;
+            user.UserLastName = Input.LastName;
+            user.UserName = Input.Username;
+            var Result = await _userManager.UpdateAsync(user);
+
+            //adding/updating aphone number
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
