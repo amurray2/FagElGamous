@@ -34,11 +34,26 @@ namespace FagElGamous.Controllers
         }
 
         [HttpGet]
-        public IActionResult Burial()
+        public IActionResult Burial(int pageNum = 1)
         {
+            int pageSize = 1;
             IQueryable<Burial> query = context.Burial.Include(b => b.Location);
 
-            return View(query);
+            return View(new SummaryPageViewModel
+            {
+                Burials = (context.Burial
+                    .Include(b => b.Location)
+                    .OrderBy(b => b.Location.LocationString)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize)),
+
+                PageNumberingInfo = new PageNumberingInfo
+                {
+                    NumItemsPerPage = pageSize,
+                    CurrentPage = pageNum,
+                    TotalNumItems = context.Burial.Count()
+                }
+            });
         }
 
         [Authorize(Policy = "adminPolicy")]
@@ -58,7 +73,7 @@ namespace FagElGamous.Controllers
             b.Burial.MonthFound = date.ToString("MM");
             b.Burial.YearFound = date.ToString("yyyy");
             context.Burial.Add(b.Burial);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("AddBurial");
         }
         public IActionResult EditBurial(int BurialID)

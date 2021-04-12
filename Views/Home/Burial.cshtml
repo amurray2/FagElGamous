@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model IQueryable<Burial>
+@model SummaryPageViewModel
 @*Not Exactly Sure What we need to put on this page but probably just the majority of the Essential Exhumation Data.*@
 <br />
 <br />
@@ -17,7 +17,7 @@
 
 <h1 class="text-center">Burials</h1>
 <br />
-@foreach (var b in Model)
+@foreach (var b in Model.Burials)
 {
 <div class="card card-outline-primary m-3 p-5 card mb-3">
     <h3 class="text-center font-weight-bold">@b.Location.LocationString #@b.BurialNumber</h3>
@@ -122,3 +122,11 @@
     <br />
 
 }
+<div page-info="@Model.PageNumberingInfo"
+     page-action="Burial"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary">
+
+</div>
