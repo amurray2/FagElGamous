@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Location>
+<br />
+<a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">Add New Location</a>
+<br /><br />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Location</th>
+            <th scope="col"></th>
+            @*<th scope="col"></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var l in Model)
+        {
+            <tr>
+                <td>@l.LocationString</td>
+                <td>
+                    <form method="get" asp-controller="Home" asp-action="EditLocation">
+                        <input type="hidden" name="LocationId" value="@l.LocationId" />
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+                @*This is functionality we can include if the clients want it. 
+                If they delete a location they will be deleting all of the burials and 
+                all of the burials samples and other data associated with each burial*@
+                @*<td>
+                    <form method="post" asp-controller="Home" asp-action="DeleteLocation">
+                        <input type="hidden" name="LocationId" value="@l.LocationId" />
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
