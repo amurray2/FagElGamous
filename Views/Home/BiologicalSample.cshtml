@@ -5,43 +5,59 @@
 }
 @model BiologicalSampleViewModel
 
-<h1>@Model.Location.LocationString #@Model.Burial.BurialNumber Biological Samples</h1>
 <br />
+<br />
+<div class="text-center">
+    <h1>Biological Samples</h1>
+    <h3>@Model.Location.LocationString #@Model.Burial.BurialNumber</h3>
+    <br />
+    <form method="get" asp-controller="Home" asp-action="AddBioSample">
+        <button class="btn btn-secondary" type="submit">Add Biological Sample</button>
+    </form>
+    <br />
+</div>
+<br />
+
 @if (Model.BiologicalSamples.Count() <= 0)
 {
-    <p>This Burials does not have any Biol.</p>
-    <form method="get" asp-controller="Home" asp-action="AddBioSample">
-        <button type="submit">Add Biological Sample</button>
-    </form>
+    <p class="text-center">This burial does not have any biological samples.</p>
 }
+
 else
 {
-
     @foreach (var bs in Model.BiologicalSamples)
     {
-        <ul>
-            <li>Rack Num = @bs.RackNum</li>
-            <li>Bag Num = @bs.BagNum</li>
-            <li>Previously Sample = @bs.PreviouslySampled</li>
-            <li>Notes = @bs.Notes</li>
-            <li>Initials = @bs.Initials</li>
-            <li>
-                <form method="get" asp-controller="Home" asp-action="EditBioSample">
-                    <input type="hidden" name="BioId" value="@bs.BioSampleId" />
-                    <button type="submit">Edit Sample</button>
-                </form>
-            </li>
-            <li>
-                <form method="post" asp-controller="Home" asp-action="DeleteBioSample">
-                    <input type="hidden" name="BioId" value="@bs.BioSampleId" />
-                    <button type="submit">Delete Sample</button>
-                </form>
-            </li>
-        </ul>
-        <br />
-    }
+        <div class="card mx-auto" style="width: 45rem;">
+            <div class="card-body">
+                <p class="card-text">Rack Number: @bs.RackNum</p>
+                <p class="card-text">Bag Number: @bs.BagNum</p>
 
-    <form method="get" asp-controller="Home" asp-action="AddBioSample">
-        <button type="submit">Add Biological Sample</button>
-    </form>
-}
+                @if (bs.PreviouslySampled == true)
+                {
+                    <p class="card-text">Previously Sampled: Yes</p>
+                }
+                else
+                {
+                    <p class="card-text">Previously Sampled: No</p>
+                }
+
+                <p class="card-text">Notes About Sample: @bs.Notes</p>
+                <p class="card-text">Initials of Data Entry Expert: @bs.Initials</p>
+
+                <div class="btn-toolbar float-right">
+                    <form method="get" asp-controller="Home" asp-action="EditBioSample">
+                        <input type="hidden" name="BioId" value="@bs.BioSampleId" />
+                        <button class="btn btn-info mr-2" type="submit">Edit</button>
+                    </form>
+
+                    <form method="post" asp-controller="Home" asp-action="DeleteBioSample">
+                        <input type="hidden" name="BioId" value="@bs.BioSampleId" />
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <br />
+        }
+    }

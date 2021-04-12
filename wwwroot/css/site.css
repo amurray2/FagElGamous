@@ -107,6 +107,64 @@ a {
     }
 
 
+.btn-danger {
+    color: #EC5E21 !important;
+    font-size: medium;
+    font-weight: bold;
+    background-color: #FFFFFF !important;
+    border-color: #EC5E21 !important;
+}
+
+    .btn-danger:hover {
+        background-color: #EC5E21 !important; /* red-orange */
+        color: #FFFFFF !important;
+        border-color: #EC5E21 !important;
+    }
+
+    .btn-danger:active {
+        background-color: #EC5E21 !important; /* red-orange */
+        outline-color: #EC5E21 !important;
+        color: white;
+        border-color: #EC5E21;
+    }
+
+    .btn-danger:focus {
+        background-color: #EC5E21 !important; /* red-orange */
+        outline-color: #EC5E21 !important;
+        color: white;
+        border-color: #EC5E21;
+    }
+
+
+.btn-info {
+    color: #FFFFFF !important;
+    font-size: medium;
+    font-weight: bold;
+    background-color: #5387C0 !important;
+    border-color: #5387C0 !important;
+}
+
+    .btn-info:hover {
+        background-color: #9FBBC6 !important; /* light blue */
+        color: #FFFFFF !important;
+        border-color: #9FBBC6 !important;
+    }
+
+    .btn-info:active {
+        background-color: #9FBBC6 !important; /* light blue */
+        outline-color: #9FBBC6 !important;
+        color: white;
+        border-color: #9FBBC6;
+    }
+
+    .btn-info:focus {
+        background-color: #9FBBC6 !important; /* light blue */
+        outline-color: #9FBBC6 !important;
+        color: white;
+        border-color: #9FBBC6;
+    }
+
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;

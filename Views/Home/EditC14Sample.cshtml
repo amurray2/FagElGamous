@@ -5,42 +5,82 @@
 }
 @model C14Sample
 <br />
+<br />
+<h1 class="text-center">Edit C14 Sample</h1>
+<br />
+<br />
+
 <form method="post" asp-controller="Home" asp-action="EditC14Sample">
-    <label asp-for="RackNum">Rack Num</label>
-    <input type="number" asp-for="RackNum" />
-    <br />
-    <label asp-for="TubeNum">Tube Num</label>
-    <input type="number" asp-for="TubeNum" />
-    <br />
-    <label asp-for="Description">Description</label>
-    <input type="text" asp-for="Description" />
-    <br />
-    <label asp-for="Location">Location</label>
-    <input type="text" asp-for="Location" />
-    <br />
-    <label asp-for="Questions">Questions</label>
-    <textarea asp-for="Questions"></textarea>
-    <br />
-    <label asp-for="Conventia14cAgeBp">Convential 14C age BP</label>
-    <input type="number" asp-for="Conventia14cAgeBp" />
-    <br />
-    <label asp-for="_14cCalendarDate">14C Calender Date</label>
-    <input type="number" asp-for="_14cCalendarDate" />
-    <br />
+
+    <div class="form-group">
+        <label asp-for="RackNum">Rack Number</label>
+        <input class="form-control" type="number" asp-for="RackNum" style="width: 500px;" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TubeNum">Tube Number</label>
+        <input class="form-control" type="number" asp-for="TubeNum" style="width: 500px;" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input class="form-control" type="text" asp-for="Description" style="width: 500px;" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Location">Location</label>
+        <textarea class="form-control" asp-for="Location" style="width: 500px;"></textarea>
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Questions">Questions</label>
+        <textarea class="form-control" asp-for="Questions" style="width: 500px;"></textarea>
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Conventia14cAgeBp">Convential 14C age BP</label>
+        <input class="form-control" type="number" asp-for="Conventia14cAgeBp" style="width: 500px;" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="_14cCalendarDate">14C Calendar Date</label>
+        <input class="form-control" type="number" asp-for="_14cCalendarDate" style="width: 500px;" />
+        <br />
+    </div>
+
     @*These 2 fields are required*@
-    <label asp-for="Calibrated95CalendarDateMax">Calibrated 95% Calendar Date MAX</label>
-    <input type="number" asp-for="Calibrated95CalendarDateMax" required />
+    <div class="form-group">
+        <label asp-for="Calibrated95CalendarDateMax">Calibrated 95% Calendar Date Maximum</label>
+        <input class="form-control" type="number" asp-for="Calibrated95CalendarDateMax" style="width: 500px;" required />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Calibrated95CalendarDateMin">Calibrated 95% Calendar Date Minimum</label>
+        <input class="form-control" type="number" asp-for="Calibrated95CalendarDateMin" style="width: 500px;" required />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category">Category</label>
+        <input class="form-control" type="text" asp-for="Category" style="width: 500px;" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Notes">Notes</label>
+        <textarea class="form-control" asp-for="Notes" style="width: 500px;"></textarea>
+        <br />
+    </div>
+
+    <button class="btn btn-secondary" type="submit">Save Changes</button>
     <br />
-    <label asp-for="Calibrated95CalendarDateMin">Calibrated 95% Calendar Date Min</label>
-    <input type="number" asp-for="Calibrated95CalendarDateMin" required />
     <br />
-    <label asp-for="Category">Category</label>
-    <input type="text" asp-for="Category" />
     <br />
-    <label asp-for="Notes">Notes</label>
-    <textarea asp-for="Notes"></textarea>
-    <br />
-    <input type="hidden" asp-for="BurialId" />
-    <input type="hidden" asp-for="C14SampleId" />
-    <button type="submit">Edit C14 Sample</button>
 </form>
