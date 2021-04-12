@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var roleId = ViewBag.roleId;
+}
+
+@using FagElGamous.Areas.Identity.Data
+
+@model IEnumerable<FagElGamousUser>
+
+<h1>List of all Users</h1>
+<a asp-action="Create">Create</a>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Username</td>
+            <td>Role</td>
+            <td>Remove User</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usr in Model)
+        {
+        <tr>
+            <td>@usr.UserFirstName @usr.UserLastName</td>
+            <td>@usr.Email</td>
+            <td>@usr.UserName</td>
+            @*<td>
+            <form asp-action="editUserForm" method="post" asp-controller="Role">
+                <button class="btn btn-sm btn-primary" type="submit">Edit</button>
+                <input type="hidden" value="@usr.Id" name="userId" />
+            </form>
+        </td>*@
+            <td>
+                <a asp-action="EditUser" asp-controller="Administration"
+                   asp-route-id="@usr.Id" class="btn btn-sm btn-primary">Edit</a>
+            </td>
+            @if (usr.UserFirstName == "Admin" || usr.UserName == "Admin")
+            {
+                <td></td>
+            }
+            else
+            {
+                <td>
+                    <form asp-action="deleteUser" method="post" asp-controller="Administration">
+                        <button class="btn btn-sm btn-primary" type="submit">Delete</button>
+                        <input type="hidden" value="@usr.Id" name="userId" />
+                    </form>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

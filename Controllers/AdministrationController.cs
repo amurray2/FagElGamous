@@ -1,4 +1,5 @@
 ﻿using FagElGamous.Areas.Identity.Data;
+using FagElGamous.Data;
 using FagElGamous.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,10 +15,18 @@ namespace FagElGamous.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<FagElGamousUser> userManager;
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<FagElGamousUser> userManager)
+        private UserLoginContext context;
+        public AdministrationController(UserLoginContext con, RoleManager<IdentityRole> roleManager, UserManager<FagElGamousUser> userManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            context = con;
+        }
+
+        [Authorize(Policy = "adminPolicy")]
+        public IActionResult Index()
+        {
+            return View(context.Users);
         }
 
         [HttpGet]
@@ -186,7 +195,7 @@ namespace FagElGamous.Controllers
         //delete role
         [Authorize(Policy = "adminPolicy")]
         [HttpPost]
-        public async Task<IActionResult> DeleteRole(string roleId)
+        public async Task<IActionResult> deleteRole(string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);
 
@@ -205,5 +214,79 @@ namespace FagElGamous.Controllers
             return View("ListRoles");
         }
 
+        //Edit user
+        [Authorize(Policy = "adminPolicy")]
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                //Email = user.Email,
+                UserName = user.UserName,
+                Roles = userRoles
+            };
+
+            return View(model);
+        }
+
+        [Authorize(Policy = "adminPolicy")]
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.Id);
+
+            user.UserName = model.UserName;
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
+        }
+
+        //delete user
+        [Authorize(Policy = "adminPolicy")]
+        [HttpPost]
+        public IActionResult deleteUser(string userId)
+        {
+            FagElGamousUser usr = context.Users.Find(userId);
+            context.Users.Remove(usr);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //[Authorize(Policy = "adminPolicy")]
+        //[HttpPost]
+        //public async Task<IActionResult> EditUser(EditUserViewModel model)
+        //{
+        //    var user = await userManager.FindByIdAsync(model.Id);
+
+        //    user.UserName = model.UserName;
+        //    var result = await userManager.UpdateAsync(user);
+
+        //    if (result.Succeeded)
+        //    {
+        //        return RedirectToAction("/User/Index");
+        //    }
+
+        //    foreach (var error in result.Errors)
+        //    {
+        //        ModelState.AddModelError("", error.Description);
+        //    }
+
+        //    return View(model);
+        //}
     }
 }
