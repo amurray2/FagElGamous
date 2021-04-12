@@ -73,9 +73,20 @@ namespace FagElGamous.Controllers
             b.Burial.MonthFound = date.ToString("MM");
             b.Burial.YearFound = date.ToString("yyyy");
             context.Burial.Add(b.Burial);
-            context.SaveChanges();
+
+            //Location l = context.Location.Single(l => l.LocationId == LocationId);
+            foreach (Burial burial in context.Burial.Where(b => b.LocationId == LocationId))
+            {
+                if (burial.BurialNumber == b.Burial.BurialNumber)
+                {
+                    //return Burial already stored.
+                    return View("ErrorBurial");
+                }
+            }
+            //context.SaveChanges();
             return RedirectToAction("AddBurial");
         }
+        [HttpGet]
         public IActionResult EditBurial(int BurialID)
         {
             return View(new BurialViewModel
@@ -85,7 +96,75 @@ namespace FagElGamous.Controllers
             });
 
         }
+        [HttpPost]
+        public IActionResult EditBurial(BurialViewModel b, int LocationId, DateTime date, int BurialId)
+        {
+            Burial newB = context.Burial.Single(bur => bur.BurialId == BurialId);
+            newB.LocationId = LocationId;
+            newB.BurialNumber = b.Burial.BurialNumber;
+            newB.SouthToHead = b.Burial.SouthToHead;
+            newB.SouthToFeet = b.Burial.SouthToFeet;
+            newB.WestToHead = b.Burial.WestToHead;
+            newB.WestToFeet = b.Burial.WestToFeet;
+            newB.LengthOfRemains = b.Burial.LengthOfRemains;
+            newB.BurialDepth = b.Burial.BurialDepth;
+            newB.ArtifactFound = b.Burial.ArtifactFound;
+            newB.TextileTaken = b.Burial.TextileTaken;
+            newB.HairColor = b.Burial.HairColor;
+            newB.AgeCodeSingle = b.Burial.AgeCodeSingle;
+            newB.HeadDirection = b.Burial.HeadDirection;
+            newB.InitialsOfDataEntryExpert = b.Burial.InitialsOfDataEntryExpert;
+            if(date.ToString("yyyy") != "0001")
+            {
+                newB.DayFound = date.ToString("dd");
+                newB.MonthFound = date.ToString("MM");
+                newB.YearFound = date.ToString("yyyy");
+            }
+            //context.SaveChanges();
+            //Might be good to do a changes made success page.
+            return RedirectToAction("Burial");
+        }
+        [HttpPost]
+        public IActionResult DeleteBurial(int BurialId)
+        {
+            foreach (Artifacts a in context.Artifacts.Where(a => a.BurialId == BurialId))
+            {
+                context.Artifacts.Remove(a);
+            }
+            //context.SaveChanges();
+            foreach (C14Sample c in context.C14Sample.Where(c => c.BurialId == BurialId))
+            {
+                context.C14Sample.Remove(c);
+            }
+            //context.SaveChanges();
+            foreach (BiologicalSample bs in context.BiologicalSample.Where(bs => bs.BurialId == BurialId))
+            {
+                context.BiologicalSample.Remove(bs);
+            }
+            //context.SaveChanges();
+            foreach (Preservation p in context.Preservation.Where(p => p.BurialId == BurialId))
+            {
+                context.Preservation.Remove(p);
+            }
+            //context.SaveChanges();
+            foreach (Bones b in context.Bones.Where(b => b.BurialId == BurialId))
+            {
+                context.Remove(b);
+            }
+            //context.SaveChanges();
 
+            Burial burial = context.Burial.Single(b => b.BurialId == BurialId);
+            context.Remove(burial);
+            //context.SaveChanges();
+            return RedirectToAction("Burial");
+        }
+
+        //Location action methods
+        [HttpGet]
+        public IActionResult Locations()
+        {
+            return View(context.Location);
+        }
         [HttpGet]
         public IActionResult AddLocation()
         {
@@ -100,14 +179,49 @@ namespace FagElGamous.Controllers
                 if (l.LocationString == loc.LocationString)
                 {
                     //Return Error Page for Location Already stored
-                    return View();
+                    return View("ErrorLocation");
                 }
             }
             context.Location.Add(l);
             //context.SaveChanges();
             //Return Success page.
-            return View();
+            return View("SuccessLocation");
         }
+        [HttpGet]
+        public IActionResult EditLocation(int LocationId)
+        {
+            return View(context.Location.Single(l => l.LocationId == LocationId));
+        }
+        [HttpPost]
+        public IActionResult EditLocation(Location l)
+        {
+            Location newL = context.Location.Single(loc => loc.LocationId == l.LocationId);
+            newL.BurialLocationNs = l.BurialLocationNs;
+            newL.HighPairNs = l.HighPairNs;
+            newL.LowPairNs = l.LowPairNs;
+            newL.BurialLocationEw = l.BurialLocationEw;
+            newL.HighPairEw = l.HighPairEw;
+            newL.LowPairEw = l.LowPairEw;
+            newL.BurialSubplot = l.BurialSubplot;
+            l.LocationString = l.BurialLocationNs + " " + l.LowPairNs + "/" + l.HighPairNs + " " + l.BurialLocationEw + " " + l.LowPairEw + "/" + l.HighPairEw + " " + l.BurialSubplot;
+            foreach (Location loc in context.Location)
+            {
+                if (l.LocationString == loc.LocationString)
+                {
+                    //Return Error Page for Location Already stored
+                    return View("ErrorLocation");
+                }
+            }
+            newL.LocationString = l.LocationString;
+            //context.SaveChanges();
+            return View("SuccessLocation");
+        }
+        //Still wondering if we should allow users to do this.
+        //[HttpPost]
+        //public IActionResult DeleteLocation(int LocationId)
+        //{
+
+        //}
 
         //Artifact action methods
         [HttpGet]
@@ -145,6 +259,14 @@ namespace FagElGamous.Controllers
             Artifacts newA = context.Artifacts.Single(art => art.ArtifactId == a.ArtifactId);
             newA.ArtifactDescription = a.ArtifactDescription;
             context.SaveChanges();
+            return RedirectToAction("Artifact", new { BurialId = a.BurialId });
+        }
+        [HttpPost]
+        public IActionResult DeleteArtifact(int ArtifactId)
+        {
+            Artifacts a = context.Artifacts.Single(art => art.ArtifactId == ArtifactId);
+            context.Artifacts.Remove(a);
+            //context.SaveChanges();
             return RedirectToAction("Artifact", new { BurialId = a.BurialId });
         }
 
@@ -188,6 +310,14 @@ namespace FagElGamous.Controllers
             newB.PreviouslySampled = bs.PreviouslySampled;
             newB.Notes = bs.Notes;
             newB.Initials = bs.Initials;
+            //context.SaveChanges();
+            return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
+        }
+        [HttpPost]
+        public IActionResult DeleteBioSample(int BioId)
+        {
+            BiologicalSample bs = context.BiologicalSample.Single(bio => bio.BioSampleId == BioId);
+            context.BiologicalSample.Remove(bs);
             //context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
@@ -280,6 +410,15 @@ namespace FagElGamous.Controllers
             //context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
+        [HttpPost]
+        public IActionResult DeleteC14Sample(int C14Id)
+        {
+            C14Sample c = context.C14Sample.Single(c => c.C14SampleId == C14Id);
+            context.C14Sample.Remove(c);
+            //context.SaveChanges();
+            return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
+        }
+
 
         public IActionResult Privacy()
         {

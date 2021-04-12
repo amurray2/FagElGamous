@@ -26,6 +26,9 @@ h5 {
     margin-left: 10px !important;
 }
 
+.no-margin {
+    padding-left: 0px !important;
+}
 
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
@@ -102,9 +105,6 @@ a {
         color: white;
         border-color: #C0A534;
     }
-
-
-
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
