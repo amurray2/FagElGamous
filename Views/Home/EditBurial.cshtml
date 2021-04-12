@@ -27,12 +27,12 @@
     -->
 <br />
 
-<form method="post" asp-controller="Home" asp-action="AddBurial">
+<form method="post" asp-controller="Home" asp-action="EditBurial">
 
     <div class="row">
         <div class="form-group col">
             <label name="LocationId">Burial Location</label>
-            <select class="form-control" name="LocationId">
+            <select class="form-control" name="LocationId" asp-for="Burial.LocationId">
                 @foreach (var l in Model.Location)
                 {
                     <option value="@l.LocationId">@l.LocationString</option>
@@ -155,6 +155,6 @@
         <label name="Date">Date Found</label>
         <input class="form-control" type="date" name="date" />
     </div>
-
-    <button class="btn btn-primary" type="submit">Save Burial</button>
+    <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
+    <button class="btn btn-primary" type="submit">Update Burial</button>
 </form>
