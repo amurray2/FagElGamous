@@ -26,10 +26,6 @@ h5 {
     margin-left: 10px !important;
 }
 
-.no-margin {
-    padding-left: 0px !important;
-}
-
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
@@ -47,6 +43,11 @@ a {
 }
 
 
+/* Button styles */
+
+.btn {
+    margin-left: 0px !important;
+}
 
 .btn-primary {
     color: #FFFFFF;
