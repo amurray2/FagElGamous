@@ -23,7 +23,7 @@ namespace FagElGamous.Models
 			//string port = appConfig["1433"];
 
 			//return "Data Source=" + hostname + ";Initial Catalog=" + dbname + ";User ID=" + username + ";Password=" + password + ";";
-			return "Data Source=aau4q5pvk5vfn7.ccuryo6mmnkm.us-east-1.rds.amazonaws.com;Initial Catalog=FagElGamous;User ID=group39;Password=waterbuffalo;";
+			return "Data Source=aau4q5pvk5vfn7.ccuryo6mmnkm.us-east-1.rds.amazonaws.com;Initial Catalog=WaterBuffalo;User ID=group39;Password=waterbuffalo;";
 		}
 	}
 }

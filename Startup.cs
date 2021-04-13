@@ -37,7 +37,7 @@ namespace FagElGamous
 
             services.AddDbContext<UserLoginContext>(options =>
                     options.UseSqlServer(
-                        //context.Configuration.GetConnectionString("UserLoginContextConnection")));
+                        //Configuration.GetConnectionString("UserLoginContextConnection")));
                         Helpers.GetRDSConnectionString()));
             services.AddIdentity<FagElGamousUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddDefaultUI()
