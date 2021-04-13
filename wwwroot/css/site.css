@@ -26,10 +26,9 @@ h5 {
     margin-left: 10px !important;
 }
 
-.no-margin {
-    padding-left: 0px !important;
+.ml-10 {
+    margin-left: 50px !important
 }
-
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
@@ -40,6 +39,11 @@ a.navbar-brand {
 }
 
 
+.white:visited {
+    color: #5387C0 !important;
+    background: #C5D8ED !important;
+}
+
 
 /* Provide sufficient contrast against white background */
 a {
@@ -47,6 +51,11 @@ a {
 }
 
 
+/* Button styles */
+
+.btn {
+    margin-left: 0px !important;
+}
 
 .btn-primary {
     color: #FFFFFF;
@@ -145,23 +154,23 @@ a {
 }
 
     .btn-info:hover {
-        background-color: #9FBBC6 !important; /* light blue */
+        background-color: #9EBCDD !important; /* light blue */
         color: #FFFFFF !important;
-        border-color: #9FBBC6 !important;
+        border-color: #9EBCDD !important;
     }
 
     .btn-info:active {
-        background-color: #9FBBC6 !important; /* light blue */
-        outline-color: #9FBBC6 !important;
+        background-color: #9EBCDD !important; /* light blue */
+        outline-color: #9EBCDD !important;
         color: white;
-        border-color: #9FBBC6;
+        border-color: #9EBCDD;
     }
 
     .btn-info:focus {
-        background-color: #9FBBC6 !important; /* light blue */
-        outline-color: #9FBBC6 !important;
+        background-color: #9EBCDD !important; /* light blue */
+        outline-color: #9EBCDD !important;
         color: white;
-        border-color: #9FBBC6;
+        border-color: #9EBCDD;
     }
 
 

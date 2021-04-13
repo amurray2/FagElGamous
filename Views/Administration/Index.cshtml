@@ -6,11 +6,14 @@
 @using FagElGamous.Areas.Identity.Data
 
 @model IEnumerable<FagElGamousUser>
+<br />
+<br />
+<h1 class="text-center">All Users</h1>
+<br />
 
-<h1>List of all Users</h1>
 <table class="table table-striped table-bordered">
     <thead>
-        <tr>
+        <tr class="h5">
             <td>Name</td>
             <td>Email</td>
             <td>Username</td>
@@ -33,7 +36,7 @@
         </td>*@
             <td>
                 <a asp-action="EditUser" asp-controller="Administration"
-                   asp-route-id="@usr.Id" class="btn btn-sm btn-primary">Edit</a>
+                   asp-route-id="@usr.Id" class="btn btn-info">Edit</a>
             </td>
             @if (usr.UserFirstName == "Admin" || usr.UserName == "Admin")
             {
@@ -43,7 +46,7 @@
             {
                 <td>
                     <form asp-action="deleteUser" method="post" asp-controller="Administration">
-                        <button class="btn btn-sm btn-primary" type="submit">Delete</button>
+                        <button class="btn btn-danger" type="submit">Remove</button>
                         <input type="hidden" value="@usr.Id" name="userId" />
                     </form>
                 </td>
