@@ -4,19 +4,23 @@
 @{ 
     ViewBag.Title = "Create New Role";
 }
+<br />
+<br />
+<h1 class="text-center">Create New Role</h1>
+<br />
+<br />
 
-<h1>Create New Role</h1>
-<div class="col-md-4">
+<div class="col-md-5">
     <form method="post">
-        <h4>Create a new account.</h4>
+        <h4>Create a new role to assign users to.</h4>
         <hr />
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="RoleName"></label>
+            <label asp-for="RoleName">Role Name</label>
             <input asp-for="RoleName" class="form-control" />
             <span asp-validation-for="RoleName" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Create Role</button>
-        <a asp-action="ListRoles" class="btn btn-primary">Cancel</a>
+        <button type="submit" class="btn btn-info">Create Role</button>
+        <a asp-action="ListRoles" class="btn btn-danger">Cancel</a>
     </form>
 </div>

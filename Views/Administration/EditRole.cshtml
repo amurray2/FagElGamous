@@ -2,21 +2,24 @@
 
 @model FagElGamous.ViewModels.EditRoleViewModel
 
-@{ 
+@{
     ViewBag.Title = "Edit Role";
 }
-
-<h1>Edit Role</h1>
+<br />
+<br />
+<h1 class="text-center">Edit Role</h1>
+<br />
+<br />
 
 <form method="post" class="mr-3">
     <div class="form-group row">
-        <label asp-for="Id" class="col-sm-2 col-form-label"></label>
+        <label asp-for="Id" class="col-sm-2 col-form-label h6">ID</label>
         <div class="col-sm-10">
             <input asp-for="Id" disabled class="form-control" />
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="RoleName" class="col-sm-2 col-form-label"></label>
+        <label asp-for="RoleName" class="col-sm-2 col-form-label h6">Role Name</label>
         <div class="col-sm-10">
             <input asp-for="RoleName" class="form-control" />
             <span asp-validation-for="RoleName" class="text-danger"></span>
@@ -27,21 +30,25 @@
 
     <div class="form-group row">
         <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a asp-action="ListRoles" class="btn btn-primary">Cancel</a>
+            <button type="submit" class="btn btn-info">Update</button>
+            <a asp-action="ListRoles" class="btn btn-danger">Cancel</a>
         </div>
     </div>
 
+    <br />
+    <br />
+
     <div class="card">
         <div class="card-header">
-            <h3>Users in this role</h3>
+            <h3>Users in this Role</h3>
         </div>
+
         <div class="card-body">
             @if (Model.Users.Any())
             {
-                foreach(var user in Model.Users)
+                foreach (var user in Model.Users)
                 {
-                    <h5 class="card-title">@user</h5>
+                    <p class="card-title h6">@user</p>
                 }
             }
             else
@@ -53,9 +60,9 @@
             <div class="card-header">
                 <div class="col-sm-10">
                     <a asp-action="EditUsersInRole" asp-controller="Administration" asp-route-roleId="@Model.Id"
-                       class="btn btn-primary" style="width:auto">Add or remove Users</a>
-                </div>    
-            </div>        
+                       class="btn btn-secondary" style="width:auto">Add or Remove Users</a>
+                </div>
+            </div>
         </div>
     </div>
 </form>

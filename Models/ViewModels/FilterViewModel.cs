@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace FagElGamous.Models.ViewModels
 {
-    public class SummaryPageViewModel
+    public class FilterViewModel
     {
-        public IQueryable<Location> Locations { get; set; }
+        public IQueryable<Burial> AllBurials { get; set; }
         public IQueryable<Burial> Burials { get; set; }
         public PageNumberingInfo PageNumberingInfo { get; set; }
         public int LocationId { get; set; }
