@@ -51,7 +51,7 @@ namespace FagElGamous.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Role");
+                    return RedirectToAction("ListRoles");
                 }
 
                 foreach(IdentityError error in result.Errors)
