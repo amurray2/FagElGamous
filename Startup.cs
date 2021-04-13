@@ -37,7 +37,7 @@ namespace FagElGamous
 
             services.AddDbContext<UserLoginContext>(options =>
                     options.UseSqlServer(
-                        //context.Configuration.GetConnectionString("UserLoginContextConnection")));
+                        //Configuration.GetConnectionString("UserLoginContextConnection")));
                         Helpers.GetRDSConnectionString()));
             services.AddIdentity<FagElGamousUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddDefaultUI()
@@ -63,7 +63,7 @@ namespace FagElGamous
 
                 //access for researcher
                 options.AddPolicy("researcherPolicy",
-                    builder => builder.RequireRole("SuperUser", "Researcher", "User"));
+                    builder => builder.RequireRole("SuperUser", "Researcher"));
                 //access for SuperUser
                 options.AddPolicy("adminPolicy",
                     builder => builder.RequireRole("SuperUser"));

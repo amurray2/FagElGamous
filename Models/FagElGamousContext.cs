@@ -32,6 +32,7 @@ namespace FagElGamous.Models
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Preservation> Preservation { get; set; }
         public virtual DbSet<Researcher> Researcher { get; set; }
+        public virtual DbSet<Photos> Photos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
