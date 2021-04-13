@@ -15,6 +15,7 @@ namespace FagElGamous.Models
             BiologicalSample = new HashSet<BiologicalSample>();
             C14Sample = new HashSet<C14Sample>();
             Photos = new HashSet<Photos>();
+            FieldBooks = new HashSet<FieldBooks>();
         }
 
         public int BurialId { get; set; }
@@ -71,5 +72,6 @@ namespace FagElGamous.Models
         public virtual ICollection<BiologicalSample> BiologicalSample { get; set; }
         public virtual ICollection<C14Sample> C14Sample { get; set; }
         public virtual ICollection<Photos> Photos { get; set; }
+        public virtual ICollection<FieldBooks> FieldBooks { get; set; }
     }
 }
