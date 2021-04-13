@@ -33,6 +33,7 @@ namespace FagElGamous.Controllers
             return View();
         }
 
+        [Route("Home/Filter")]
         [HttpGet]
         public IActionResult Filter(int LocationId, string Age, string HeadDirection, int pageNum = 1)
         {
@@ -128,6 +129,13 @@ namespace FagElGamous.Controllers
             });
         }
 
+        [HttpGet]
+        public IActionResult SingleBurial(int BurialId)
+        {
+            Burial b = context.Burial.Include(b => b.Location).Single(b => b.BurialId == BurialId);
+            return View(b);
+        }
+
         [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult AddBurial()
@@ -195,7 +203,7 @@ namespace FagElGamous.Controllers
                 newB.MonthFound = date.ToString("MM");
                 newB.YearFound = date.ToString("yyyy");
             }
-            //context.SaveChanges();
+            context.SaveChanges();
             //Might be good to do a changes made success page.
             return RedirectToAction("Burial");
         }
@@ -400,7 +408,7 @@ namespace FagElGamous.Controllers
             newB.PreviouslySampled = bs.PreviouslySampled;
             newB.Notes = bs.Notes;
             newB.Initials = bs.Initials;
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
         [Authorize(Policy = "adminPolicy")]
@@ -457,7 +465,7 @@ namespace FagElGamous.Controllers
                 c.Calibrated95CalendarDateAvg = "0";
             }
             context.C14Sample.Add(c);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
         [Authorize(Policy = "researcherPolicy")]
@@ -502,7 +510,7 @@ namespace FagElGamous.Controllers
             }
             newC.Category = c.Category;
             newC.Notes = c.Notes;
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
         [Authorize(Policy = "adminPolicy")]
