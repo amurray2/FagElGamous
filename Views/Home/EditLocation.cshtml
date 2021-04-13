@@ -4,43 +4,88 @@
 @{
 }
 @model Location
+
 <br />
-<h1>Edit @Model.LocationString</h1>
 <br />
+<h1 class="text-center">Edit Location</h1>
+<h3 class="text-center">@Model.LocationString</h3>
+<br />
+<br />
+
 <form method="post" asp-controller="Home" asp-action="EditLocation" needs-validation>
-    <label asp-for="BurialLocationNs">Burial Location N/S</label>
-    <select asp-for="BurialLocationNs">
-        <option value="N">N</option>
-        <option value="S">S</option>
-    </select>
+
+    <div class="row">
+        <div class="form-group col">
+            <label asp-for="BurialLocationNs">Direction (North or South)</label>
+            <select class="form-control" asp-for="BurialLocationNs">
+                <option value="N">North</option>
+                <option value="S">South</option>
+            </select>
+            <small class="form-text text-muted">Direction (north or south) to burial from necropolis datum point.</small>
+        </div>
+        <br />
+
+        <div class="form-group col">
+            <label asp-for="LowPairNs">North/South Low Measurement</label>
+            <input class="form-control" type="number" asp-for="LowPairNs" />
+            <small class="form-text text-muted">Distance north/south (in meters) from datum point to nearest edge of 10 x 10 meter square.</small>
+        </div>
+        <br />
+
+        <div class="form-group col">
+            <label asp-for="HighPairNs">North/South High Measurement</label>
+            <input class="form-control" type="number" asp-for="HighPairNs" required />
+            <small class="form-text text-muted">Distance north/south (in meters) from datum point to farthest edge of 10 x 10 meter square.</small>
+        </div>
+        <br />
+    </div>
     <br />
-    <label asp-for="HighPairNs">N/S High:</label>
-    <input type="number" asp-for="HighPairNs" required />
     <br />
-    <label asp-for="LowPairNs">N/S Low:</label>
-    <input type="number" asp-for="LowPairNs" required/>
+
+    <div class="row">
+        <div class="form-group col">
+            <label asp-for="BurialLocationEw">Direction (East or West)</label>
+            <select class="form-control" asp-for="BurialLocationEw">
+                <option value="E">East</option>
+                <option value="W">West</option>
+            </select>
+            <small class="form-text text-muted">Direction (east or west) to burial from necropolis datum point.</small>
+        </div>
+        <br />
+
+        <div class="form-group col">
+            <label asp-for="LowPairEw">East/West Low Measurement</label>
+            <input class="form-control" type="number" asp-for="LowPairEw" />
+            <small class="form-text text-muted">Distance east/west (in meters) from datum point to nearest edge of 10 x 10 meter square.</small>
+        </div>
+        <br />
+
+        <div class="form-group col">
+            <label asp-for="HighPairEw">East/West High Measurement</label>
+            <input class="form-control" type="number" asp-for="HighPairEw" />
+            <small class="form-text text-muted">Distance east/west (in meters) from datum point to farthest edge of 10 x 10 meter square.</small>
+        </div>
+        <br />
+    </div>
     <br />
-    <label asp-for="BurialLocationEw">Burial Location N/S</label>
-    <select asp-for="BurialLocationEw">
-        <option value="E">E</option>
-        <option value="W">W</option>
-    </select>
     <br />
-    <label asp-for="HighPairEw">E/W High:</label>
-    <input type="number" asp-for="HighPairEw" />
-    <br />
-    <label asp-for="LowPairEw">E/W Low:</label>
-    <input type="number" asp-for="LowPairEw" />
-    <br />
-    <label asp-for="BurialSubplot">Area Subplot</label>
-    <select asp-for="BurialSubplot">
-        <option value="SE">SE</option>
-        <option value="NE">NE</option>
-        <option value="SW">SW</option>
-        <option value="NW">NW</option>
-    </select>
-    <br />
+
+    <div class="row">
+        <div class="form-group col-3">
+            <label asp-for="BurialSubplot">Area Subplot</label>
+            <select class="form-control" asp-for="BurialSubplot">
+                <option value="NW">NW</option>
+                <option value="NE">NE</option>
+                <option value="SW">SW</option>
+                <option value="SE">SE</option>
+            </select>
+            <small class="form-text text-muted">Specify quadrant of 10 x 10 meter square</small>
+        </div>
+    </div>
     <br />
     <input type="hidden" asp-for="LocationId" />
-    <button class="btn-primary" type="submit">Update Burial Location</button>
+    <button class="btn btn-secondary" type="submit">Save Changes</button>
+    <br />
+    <br />
+    <br />
 </form>
