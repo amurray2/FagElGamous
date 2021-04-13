@@ -3,6 +3,11 @@
 *@
 @{
 }
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
 @model SummaryPageViewModel
 @*Not Exactly Sure What we need to put on this page but probably just the majority of the Essential Exhumation Data.*@
 <br />
@@ -16,24 +21,24 @@
     }*@
 
 <form method="get" asp-controller="Home" asp-action="Filter">
-    <label name="LocationId">Location</label>
-    <select name="LocationId">
-        <option value="" selected disabled>All</option>
+    <label name="Location">Location</label>
+    <select name="LocationId" asp-for="@Model.LocationId">
+        <option value="" selected>Select Location</option>
         @foreach (Location l in Model.Locations)
         {
             <option value="@l.LocationId">@l.LocationString</option>
         }
     </select>
     <label name="Age">Age</label>
-    <select name="Age">
+    <select name="Age" asp-for="@Model.Age">
         <option value="All" selected>All</option>
         <option value="A">A (Adult)</option>
         <option value="C">C (Child)</option>
         <option value="N/I">NI (Neonate/Infant)</option>
     </select>
-    <label name="HeadDirection">Head Direction</label>
-    <select name="HeadDirection">
-        <option value="All" selected>All</option>
+    <label name="HeadDirection">All</label>
+    <select name="HeadDirection" asp-for="@Model.HeadDirection">
+        <option value="All" selected>Select Head Direction</option>
         <option value="E">E (East)</option>
         <option value="W">W (West)</option>
     </select>
@@ -146,11 +151,10 @@
     <br />
 
 }
-<div page-info="@Model.PageNumberingInfo"
-     page-action="Burial"
+<div page-info="@Model.PageNumberingInfo" page-url-LocationId="@Model.LocationId" page-url-Age="@Model.Age" page-url-HeadDirection="@Model.HeadDirection"
      page-classes-enabled="true"
      page-class="btn"
      page-class-normal="btn-outline-dark"
      page-class-selected="btn-primary">
-
 </div>
+
