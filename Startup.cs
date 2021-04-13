@@ -63,7 +63,7 @@ namespace FagElGamous
 
                 //access for researcher
                 options.AddPolicy("researcherPolicy",
-                    builder => builder.RequireRole("SuperUser", "Researcher", "User"));
+                    builder => builder.RequireRole("SuperUser", "Researcher"));
                 //access for SuperUser
                 options.AddPolicy("adminPolicy",
                     builder => builder.RequireRole("SuperUser"));

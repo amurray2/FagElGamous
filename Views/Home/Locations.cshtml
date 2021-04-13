@@ -1,8 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.AspNetCore.Identity
+@using FagElGamous.Areas.Identity.Data
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<FagElGamousUser> SignInManager
+@inject UserManager<FagElGamousUser> UserManager
+
 @model IEnumerable<Location>
 <br />
 <br />
@@ -14,7 +16,10 @@
     <thead>
         <tr>
             <th class="h5" scope="col">Location</th>
-            <th scope="col"></th>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+            {
+                <th scope="col"></th>
+            }
             @*<th scope="col"></th>*@
         </tr>
     </thead>
@@ -23,12 +28,16 @@
         {
             <tr>
                 <td>@l.LocationString</td>
-                <td>
-                    <form method="get" asp-controller="Home" asp-action="EditLocation">
-                        <input type="hidden" name="LocationId" value="@l.LocationId" />
-                        <button class="btn btn-info" type="submit">Edit</button>
-                    </form>
-                </td>
+                @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                {
+                    <td>
+                        <form method="get" asp-controller="Home" asp-action="EditLocation">
+                            <input type="hidden" name="LocationId" value="@l.LocationId" />
+                            <button class="btn btn-info" type="submit">Edit</button>
+                        </form>
+                    </td>
+                }
+
                 @*This is functionality we can include if the clients want it.
                     If they delete a location they will be deleting all of the burials and
                     all of the burials samples and other data associated with each burial*@
@@ -42,6 +51,9 @@
         }
     </tbody>
 </table>
-<a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">Add New Location</a>
+@if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+{
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="AddLocation">Add New Location</a>
+}
 <br />
 <br />

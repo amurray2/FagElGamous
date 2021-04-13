@@ -34,9 +34,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Burial">View Burials</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddBurial">Add Burial</a>
-                        </li>
+                        @* Only researchers and admins can see this link in the nav bar *@
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddBurial">Add Burial</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Locations">Locations</a>
                         </li>
@@ -51,29 +55,27 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
 
-                            @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
                             {
-                                //uncomment this for final depployment
-                                //this is so we can make the base super user
-                                //@if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
-                                //{
-                                    <li class="dropdown nav-item">
-                                        <a class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" href="#">
-                                       Manage
+                                <li class="dropdown nav-item">
+                                    <a class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" href="#">
+                                        Manage
                                         <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                          <li>
-                                            <a class="nav-link text-dark" asp-controller="Administration" asp-action="Index">Manage Accounts</a>
-                                          </li>
-                                          <li>
-                                            <a class="nav-link text-dark" asp-controller="Administration" asp-action="ListRoles">Manage User Roles</a>
-                                          </li>
-                                        </ul>
-                                      </li>
-                               //}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="nav-link text-dark" asp-controller="Administration" asp-action="Index">Accounts</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link text-dark" asp-controller="Administration" asp-action="ListRoles">User Roles</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             }
-                            <partial name="_LoginPartial" />
+                        }
+                        <partial name="_LoginPartial" />
 
                     </ul>
                 </div>

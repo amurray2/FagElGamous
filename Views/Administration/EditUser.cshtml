@@ -41,6 +41,7 @@
     <div class="card">
         <div class="card-header">
             <h3>User Roles</h3>
+            <p>Click "Add or Remove Roles" to navigate to the roles manager.</p>
         </div>
         <div class="card-body">
             @if (Model.Roles.Any())
@@ -59,7 +60,7 @@
             <div class="card-header">
                 <div class="col-sm-10">
                     <a asp-action="ListRoles" asp-controller="Administration" asp-route-roleId="@Model.Id"
-                       class="btn btn-secondary" style="width:auto">Add or Remove Users</a>
+                       class="btn btn-secondary" style="width:auto">Add or Remove Roles</a>
                 </div>
             </div>
         </div>

@@ -12,13 +12,16 @@
 @if (Model.Any())
 {
     <h1 class="text-center">Roles</h1>
+    <p>By default, newly registered users do not have "Researcher" or "Admin" rights.
+    To add or remove users to a role, select the view summary option for the desired role 
+    where you will then be able to view, add, and remove users from a role.</p>
     <br />
     <table class="table table-striped table-bordered">
         <thead>
             <tr class="h5">
                 <td>Role</td>
                 <td>Id</td>
-                <td>Edit</td>
+                <td>Role Summary</td>
                 <td>Remove</td>
             </tr>
         </thead>
@@ -28,10 +31,10 @@
                 <tr>
                     <td><p class="card-title h6">@role.Name</p></td>
                     <td>@role.Id</td>
-                    <td><a class="btn btn-info" asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id">Edit</a></td>
+                    <td><a class="btn btn-info" asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id">View</a></td>
                     @if (role.Name == "SuperUser" || role.Name == "Admin")
                     {
-                        <td></td>
+                        <td><em>Cannot remove Admin</em></td>
                     }
                     else
                     {

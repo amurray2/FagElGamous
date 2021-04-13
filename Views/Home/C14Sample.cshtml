@@ -1,8 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.AspNetCore.Identity
+@using FagElGamous.Areas.Identity.Data
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<FagElGamousUser> SignInManager
+@inject UserManager<FagElGamousUser> UserManager
+
 @model C14SampleViewModel
 <br />
 <br />
@@ -10,9 +12,12 @@
     <h1>C14 Samples</h1>
     <h3>@Model.Location.LocationString #@Model.Burial.BurialNumber</h3>
     <br />
-    <form method="get" asp-controller="Home" asp-action="AddC14">
-        <button class="btn btn-secondary" type="submit">Add C14 Sample</button>
-    </form>
+    @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+    {
+        <form method="get" asp-controller="Home" asp-action="AddC14">
+            <button class="btn btn-secondary" type="submit">Add C14 Sample</button>
+        </form>
+    }
     <br />
 </div>
 <br />
@@ -126,15 +131,22 @@ else
                 <p class="card-text">Notes: @c.Notes</p>
 
                 <div class="btn-toolbar float-right">
-                    <form method="get" asp-controller="Home" asp-action="EditC14Sample">
-                        <input type="hidden" name="C14Id" value="@c.C14SampleId" />
-                        <button class="btn btn-info mr-2" type="submit">Edit</button>
-                    </form>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+                    {
+                        <form method="get" asp-controller="Home" asp-action="EditC14Sample">
+                            <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                            <button class="btn btn-info mr-2" type="submit">Edit</button>
+                        </form>
+                    }
 
-                    <form method="post" asp-controller="Home" asp-action="DeleteC14Sample">
-                        <input type="hidden" name="C14Id" value="@c.C14SampleId" />
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                    {
+                        <form method="post" asp-controller="Home" asp-action="DeleteC14Sample">
+                            <input type="hidden" name="C14Id" value="@c.C14SampleId" />
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    }
+
                 </div>
                 <br />
             </div>
