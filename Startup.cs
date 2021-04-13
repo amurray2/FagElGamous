@@ -47,7 +47,8 @@ namespace FagElGamous
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 //access for researcher
                 options.AddPolicy("researcherPolicy",
                     builder => builder.RequireRole("SuperUser", "Researcher", "User"));
@@ -81,6 +82,22 @@ namespace FagElGamous
 
             app.UseEndpoints(endpoints =>
             {
+                //            endpoints.MapControllerRoute("teamnamepagenum",
+                //"TeamName/{teamId}/{teamName}/{pagenum}",
+                //new { Controller = "Home", action = "Index" }
+                //);
+                //endpoints.MapControllerRoute("filter",
+                //"Filter/{LocationId}/{pagenum}",
+                //    new { Controller = "Home", action = "Filter" }
+                //   );
+                //endpoints.MapControllerRoute("filter",
+                //"Filter/{LocationId}/{Age}/{pagenum}",
+                //new { Controller = "Home", action = "Filter" }
+                //);
+                endpoints.MapControllerRoute("filter",
+                    "Filter/{LocationId}-{Age}-{HeadDirection}/{pagenum}",
+                    new { Controller = "Home", action = "Filter" }
+                    );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -34,10 +34,81 @@ namespace FagElGamous.Controllers
         }
 
         [HttpGet]
+        public IActionResult Filter(int LocationId, string Age, string HeadDirection, int pageNum = 1)
+        {
+            //if (Age == "All")
+            //{
+            //    Age = null;
+            //}
+            //if (HeadDirection == "All")
+            //{
+            //    Age = null;
+            //}
+            //ViewBag.LocationId = LocationId;
+            int pageSize = 1;
+            IQueryable<Burial> burials;
+            if (LocationId != 0 && Age == "All" && HeadDirection == "All")
+            {
+                burials = context.Burial.Where(b => b.LocationId == LocationId);
+            }
+            else if (LocationId != 0 && Age != "All" && HeadDirection == "All")
+            {
+                burials = context.Burial.Where(b => b.LocationId == LocationId && b.AgeCodeSingle == Age);
+            }
+            else if (LocationId != 0 && Age == "All" && HeadDirection != "All")
+            {
+                burials = context.Burial.Where(b => b.LocationId == LocationId && b.HeadDirection == HeadDirection);
+            }
+            else if (LocationId == 0 && Age != "All" && HeadDirection != "All")
+            {
+                burials = context.Burial.Where(b => b.AgeCodeSingle == Age && b.HeadDirection == HeadDirection);
+            }
+            else if (LocationId == 0 && Age != "All" && HeadDirection == "All")
+            {
+                burials = context.Burial.Where(b => b.AgeCodeSingle == Age);
+            }
+            else if (LocationId == 0 && Age == "All" && HeadDirection != "All")
+            {
+                burials = context.Burial.Where(b => b.HeadDirection == HeadDirection);
+            }
+            else if (LocationId != 0 && Age != "All" && HeadDirection != "All")
+            {
+                burials = context.Burial.Where(b => b.LocationId == LocationId && b.AgeCodeSingle == Age && b.HeadDirection == HeadDirection);
+            }
+            else
+            {
+                burials = context.Burial;
+                //return RedirectToAction("Burial");
+            }
+            //burials = context.Burial.Where(b => b.LocationId == LocationId);
+
+
+            return View(new SummaryPageViewModel
+            {
+                Burials = (burials
+                    .Include(b => b.Location)
+                    .OrderBy(b => b.Location.LocationString)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize)),
+
+                PageNumberingInfo = new PageNumberingInfo
+                {
+                    NumItemsPerPage = pageSize,
+                    CurrentPage = pageNum,
+                    TotalNumItems = burials.Count()
+                },
+                Locations = context.Location,
+                LocationId = LocationId,
+                Age = Age,
+                HeadDirection = HeadDirection
+            });
+        }
+
+        [HttpGet]
         public IActionResult Burial(int pageNum = 1)
         {
             int pageSize = 1;
-            IQueryable<Burial> query = context.Burial.Include(b => b.Location);
+            //IQueryable<Burial> query = context.Burial.Include(b => b.Location);
 
             return View(new SummaryPageViewModel
             {
@@ -52,11 +123,12 @@ namespace FagElGamous.Controllers
                     NumItemsPerPage = pageSize,
                     CurrentPage = pageNum,
                     TotalNumItems = context.Burial.Count()
-                }
+                },
+                Locations = context.Location
             });
         }
 
-        [Authorize(Policy = "adminPolicy")]
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult AddBurial()
         {
@@ -65,6 +137,7 @@ namespace FagElGamous.Controllers
                 Location = context.Location
             });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult AddBurial(BurialViewModel b, int LocationId, DateTime date)
         {
@@ -83,9 +156,10 @@ namespace FagElGamous.Controllers
                     return View("ErrorBurial");
                 }
             }
-            //context.SaveChanges();
-            return RedirectToAction("AddBurial");
+            context.SaveChanges();
+            return View("SuccessBurial");
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult EditBurial(int BurialID)
         {
@@ -96,6 +170,7 @@ namespace FagElGamous.Controllers
             });
 
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult EditBurial(BurialViewModel b, int LocationId, DateTime date, int BurialId)
         {
@@ -124,6 +199,7 @@ namespace FagElGamous.Controllers
             //Might be good to do a changes made success page.
             return RedirectToAction("Burial");
         }
+        [Authorize(Policy = "adminPolicy")]
         [HttpPost]
         public IActionResult DeleteBurial(int BurialId)
         {
@@ -160,16 +236,19 @@ namespace FagElGamous.Controllers
         }
 
         //Location action methods
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult Locations()
         {
             return View(context.Location);
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult AddLocation()
         {
             return View();
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult AddLocation(Location l)
         {
@@ -187,11 +266,13 @@ namespace FagElGamous.Controllers
             //Return Success page.
             return View("SuccessLocation");
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult EditLocation(int LocationId)
         {
             return View(context.Location.Single(l => l.LocationId == LocationId));
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult EditLocation(Location l)
         {
@@ -235,11 +316,13 @@ namespace FagElGamous.Controllers
                 Location = context.Location.Single(l => l.LocationId == burial.LocationId)
             });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult AddArtifact()
         {
             return View();
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult AddArtifact(Artifacts a)
         {
@@ -248,11 +331,13 @@ namespace FagElGamous.Controllers
             context.SaveChanges();
             return RedirectToAction("Artifact", new { BurialId = a.BurialId });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult EditArtifact(int artifactId)
         {
             return View(context.Artifacts.Single(a => a.ArtifactId == artifactId));
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult EditArtifact(Artifacts a)
         {
@@ -261,6 +346,7 @@ namespace FagElGamous.Controllers
             context.SaveChanges();
             return RedirectToAction("Artifact", new { BurialId = a.BurialId });
         }
+        [Authorize(Policy = "adminPolicy")]
         [HttpPost]
         public IActionResult DeleteArtifact(int ArtifactId)
         {
@@ -283,11 +369,13 @@ namespace FagElGamous.Controllers
                 Location = context.Location.Single(l => l.LocationId == burial.LocationId)
             });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult AddBioSample()
         {
             return View();
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult AddBioSample(BiologicalSample bs)
         {
@@ -296,11 +384,13 @@ namespace FagElGamous.Controllers
             //context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult EditBioSample(int BioId)
         {
             return View(context.BiologicalSample.Single(bs => bs.BioSampleId == BioId));
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult EditBioSample(BiologicalSample bs)
         {
@@ -313,6 +403,7 @@ namespace FagElGamous.Controllers
             //context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
+        [Authorize(Policy = "adminPolicy")]
         [HttpPost]
         public IActionResult DeleteBioSample(int BioId)
         {
@@ -335,11 +426,13 @@ namespace FagElGamous.Controllers
                 Location = context.Location.Single(l => l.LocationId == burial.LocationId)
             });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult AddC14()
         {
             return View();
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult AddC14(C14Sample c)
         {
@@ -367,12 +460,14 @@ namespace FagElGamous.Controllers
             //context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
         public IActionResult EditC14Sample(int C14Id)
         {
             C14Sample c = context.C14Sample.Single(c => c.C14SampleId == C14Id);
             return View(c);
         }
+        [Authorize(Policy = "researcherPolicy")]
         [HttpPost]
         public IActionResult EditC14Sample(C14Sample c)
         {
@@ -410,6 +505,7 @@ namespace FagElGamous.Controllers
             //context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
+        [Authorize(Policy = "adminPolicy")]
         [HttpPost]
         public IActionResult DeleteC14Sample(int C14Id)
         {
