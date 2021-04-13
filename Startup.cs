@@ -69,7 +69,7 @@ namespace FagElGamous
 
                 //access for researcher
                 options.AddPolicy("researcherPolicy",
-                    builder => builder.RequireRole("SuperUser", "Researcher", "User"));
+                    builder => builder.RequireRole("SuperUser", "Researcher"));
                 //access for SuperUser
                 options.AddPolicy("adminPolicy",
                     builder => builder.RequireRole("SuperUser"));
@@ -112,10 +112,19 @@ namespace FagElGamous
                 //"Filter/{LocationId}/{Age}/{pagenum}",
                 //new { Controller = "Home", action = "Filter" }
                 //);
+                //?LocationId = 1 & Age = All & HeadDirection = All
+    //            endpoints.MapControllerRoute("filter",
+    //"Home/Filter/{LocationId}-{Age}-{HeadDirection}",
+    //new { Controller = "Home", action = "Filter" }
+    //);
                 endpoints.MapControllerRoute("filter",
-                    "Filter/{LocationId}-{Age}-{HeadDirection}/{pagenum}",
+                    "Home/Filter/{LocationId}-{Age}-{HeadDirection}-{pagenum}",
                     new { Controller = "Home", action = "Filter" }
                     );
+                //endpoints.MapControllerRoute("filter",
+                //    "Home/Filter/LocationId={LocationId}&Age={Age}&HeadDirection={HeadDirection}&pageNum={pagenum}",
+                //    new { Controller = "Home", action = "Filter" }
+                //    );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
