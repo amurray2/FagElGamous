@@ -215,31 +215,31 @@ namespace FagElGamous.Controllers
             {
                 context.Artifacts.Remove(a);
             }
-            //context.SaveChanges();
+            context.SaveChanges();
             foreach (C14Sample c in context.C14Sample.Where(c => c.BurialId == BurialId))
             {
                 context.C14Sample.Remove(c);
             }
-            //context.SaveChanges();
+            context.SaveChanges();
             foreach (BiologicalSample bs in context.BiologicalSample.Where(bs => bs.BurialId == BurialId))
             {
                 context.BiologicalSample.Remove(bs);
             }
-            //context.SaveChanges();
+            context.SaveChanges();
             foreach (Preservation p in context.Preservation.Where(p => p.BurialId == BurialId))
             {
                 context.Preservation.Remove(p);
             }
-            //context.SaveChanges();
+            context.SaveChanges();
             foreach (Bones b in context.Bones.Where(b => b.BurialId == BurialId))
             {
                 context.Remove(b);
             }
-            //context.SaveChanges();
+            context.SaveChanges();
 
             Burial burial = context.Burial.Single(b => b.BurialId == BurialId);
             context.Remove(burial);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("Burial");
         }
 
@@ -270,7 +270,7 @@ namespace FagElGamous.Controllers
                 }
             }
             context.Location.Add(l);
-            //context.SaveChanges();
+            context.SaveChanges();
             //Return Success page.
             return View("SuccessLocation");
         }
@@ -302,7 +302,7 @@ namespace FagElGamous.Controllers
                 }
             }
             newL.LocationString = l.LocationString;
-            //context.SaveChanges();
+            context.SaveChanges();
             return View("SuccessLocation");
         }
         //Still wondering if we should allow users to do this.
@@ -360,7 +360,7 @@ namespace FagElGamous.Controllers
         {
             Artifacts a = context.Artifacts.Single(art => art.ArtifactId == ArtifactId);
             context.Artifacts.Remove(a);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("Artifact", new { BurialId = a.BurialId });
         }
 
@@ -389,7 +389,7 @@ namespace FagElGamous.Controllers
         {
             bs.BurialId = (int)TempData["BurialId"];
             context.BiologicalSample.Add(bs);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
         [Authorize(Policy = "researcherPolicy")]
@@ -417,7 +417,7 @@ namespace FagElGamous.Controllers
         {
             BiologicalSample bs = context.BiologicalSample.Single(bio => bio.BioSampleId == BioId);
             context.BiologicalSample.Remove(bs);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("BiologicalSample", new { BurialId = bs.BurialId });
         }
 
@@ -449,7 +449,7 @@ namespace FagElGamous.Controllers
             decimal decAvg;
             int Avg;
             decAvg = ((decimal)c.Calibrated95CalendarDateMax + (decimal)c.Calibrated95CalendarDateMin) / 2;
-            //Avg = (int)Math.Ceiling(Math.Abs(((decimal)c.Calibrated95CalendarDateMax + (decimal)c.Calibrated95CalendarDateMin) / 2));
+            Avg = (int)Math.Ceiling(Math.Abs(((decimal)c.Calibrated95CalendarDateMax + (decimal)c.Calibrated95CalendarDateMin) / 2));
             if (decAvg < 0)
             {
                 Avg = (int)Math.Abs(Math.Floor(decAvg));
@@ -519,7 +519,7 @@ namespace FagElGamous.Controllers
         {
             C14Sample c = context.C14Sample.Single(c => c.C14SampleId == C14Id);
             context.C14Sample.Remove(c);
-            //context.SaveChanges();
+            context.SaveChanges();
             return RedirectToAction("C14Sample", new { BurialId = c.BurialId });
         }
 

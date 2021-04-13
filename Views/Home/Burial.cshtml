@@ -9,13 +9,6 @@
 @*Not Exactly Sure What we need to put on this page but probably just the majority of the Essential Exhumation Data.*@
 <br />
 <br />
-@*@foreach (var l in Model)
-    {
-        @foreach(var b in l.Burial)
-        {
-            <p>@l.LocationString @b.BurialNumber</p>
-        }
-    }*@
 
 <form method="get" asp-controller="Home" asp-action="Filter">
     <label name="LocationId">Location</label>
@@ -45,11 +38,11 @@
 <br />
 @foreach (var b in Model.Burials)
 {
-<div class="card card-outline-primary m-3 p-5 card mb-3">
-    <h3 class="text-center font-weight-bold">@b.Location.LocationString #@b.BurialNumber</h3>
-    <hr>
-    <br />
-    @if (b.AgeCodeSingle == "C")
+    <div class="card card-outline-primary m-3 p-5 card mb-3">
+        <h3 class="text-center font-weight-bold">@b.Location.LocationString #@b.BurialNumber</h3>
+        <hr>
+        <br />
+        @if (b.AgeCodeSingle == "C")
         {
             <p>Age: Child</p>
         }
@@ -65,132 +58,27 @@
         {
             <p>Age: No age recorded</p>
         }
-    @if (b.HeadDirection == "W")
-    {
-        <p>Head Direction: West</p>
-    }
-    else if (b.HeadDirection == "E")
-    {
-        <p>Head Direction: East</p>
-    }
-    else
-    {
-        <p>Head Direction: No Head Direction Recorded</p>
-    }
-
-    <!--<div class="row">-->
-        <!--Info about each burial inside bootstrap card-->
-        <!--<div class="col">
-            <br />
-            <h5>Metrics</h5>
-            <p>South to Head: @b.SouthToHead meters </p>
-            <p>South to Feet: @b.SouthToFeet meters </p>
-            <p>West to Head: @b.WestToHead meters </p>
-            <p>West to Feet: @b.WestToFeet meters </p>
-            <p>Burial Depth: @b.BurialDepth meters </p>
-            <p>Length of Remains: @b.LengthOfRemains meters </p>
-            <br />
-        </div>
-        <div class="col">
-            <br />
-            <h5>Observation</h5>
-            <p>Photo</p>
-            @if (b.ArtifactFound == true)
-            {
-                <p>Artifact Found: Yes</p>
-            }
-            else
-            {
-                <p>Artifact Found: No</p>
-            }
-            <br />
-        </div>
-
-        <div class="col">
-            <br />
-            <h5>Additional Information</h5>
-            @if (b.HeadDirection == "W")
-            {
-                <p>Head Direction: West</p>
-            }
-            else if (b.HeadDirection == "E")
-            {
-                <p>Head Direction: East</p>
-            }
-            else
-            {
-                <p>Head Direction: No Head Direction Recorded</p>
-            }
-            <p>Hair Color: @b.HairColor</p>
-
-            @if (b.AgeCodeSingle == "C")
-            {
-                <p>Age: Child</p>
-            }
-            else if (b.AgeCodeSingle == "A")
-            {
-                <p>Age: Adult</p>
-            }
-            else if (b.AgeCodeSingle == "N/I")
-            {
-                <p>Age: Neonate/Infant</p>
-            }
-            else
-            {
-                <p>Age: No age recorded</p>
-            }
+        @if (b.HeadDirection == "W")
+        {
+            <p>Head Direction: West</p>
+        }
+        else if (b.HeadDirection == "E")
+        {
+            <p>Head Direction: East</p>
+        }
+        else
+        {
+            <p>Head Direction: No Head Direction Recorded</p>
+        }
 
 
-            @if (b.TextileTaken == true)
-            {
-                <p>Textile Taken: Yes</p>
-            }
-            else
-            {
-                <p>Textile Taken: No</p>
-            }
-            <p>Initials of Data Entry Expert: @b.InitialsOfDataEntryExpert</p>
-            @if (b.MonthFound == null)
-            {
-                <p>Date Found: No date recorded</p>
-            }
-            else
-            {
-                <p>Date Found: @b.MonthFound/@b.DayFound/@b.YearFound</p>
-            }
-        </div>
-    </div>-->
 
-    <!--Buttons to view additional information about burial-->
-    <div>
-        @*<form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@b.BurialId" />
-            <button class="btn btn-secondary" type="submit">Artifacts</button>
-        </form>
-        <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@b.BurialId" />
-            <button class="btn btn-secondary" type="submit">Biological Samples</button>
-        </form>
-        <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@b.BurialId" />
-            <button class="btn btn-secondary" type="submit">C14 Samples</button>
-        </form>*@
-        <form style="display:inline-block" method="get" asp-action="SingleBurial" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@b.BurialId" />
-            <button class="btn btn-secondary" type="submit">More Details</button>
-        </form>
-
-        @*<div class="btn-toolbar float-right">
-            <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+        <!--Buttons to view additional information about burial-->
+        <div>
+            <form style="display:inline-block" method="get" asp-action="SingleBurial" asp-controller="Home">
                 <input type="hidden" name="BurialId" value="@b.BurialId" />
-                <button class="btn btn-info mr-2" type="submit">Edit</button>
+                <button class="btn btn-secondary" type="submit">More Details</button>
             </form>
-            <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
-                <input type="hidden" name="BurialId" value="@b.BurialId" />
-
-
-                <button class="btn btn-secondary" type="submit">C14 Samples</button>
-            </form>           
             <div class="btn-toolbar float-right">
                 @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
                 {
@@ -208,16 +96,16 @@
                     </form>
                 }
             </div>
-            </div>
         </div>
-        <br />
+    </div>
+    <br />
+}
 
-    }
-            <div page-info="@Model.PageNumberingInfo"
-                 page-action="Burial"
-                 page-classes-enabled="true"
-                 page-class="btn"
-                 page-class-normal="btn-outline-dark"
-                 page-class-selected="btn-primary">
+<div page-info="@Model.PageNumberingInfo"
+     page-action="Burial"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary">
 
-            </div>
+</div>
