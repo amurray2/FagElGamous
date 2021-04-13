@@ -1,6 +1,8 @@
+using Amazon.S3;
 using FagElGamous.Areas.Identity.Data;
 using FagElGamous.Data;
 using FagElGamous.Models;
+using FagElGamous.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +45,10 @@ namespace FagElGamous
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<UserLoginContext>()
                 .AddDefaultTokenProviders();
+
+            //Amazon Services for S3 stuff
+            services.AddSingleton<IS3Service, S3Service>();
+            services.AddAWSService<IAmazonS3>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

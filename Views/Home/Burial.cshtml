@@ -134,19 +134,24 @@
                 <button class="btn btn-secondary" type="submit">C14 Samples</button>
             </form>
 
-                <div class="btn-toolbar float-right">
-                    <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
-                        <input type="hidden" name="BurialId" value="@b.BurialId" />
-                        <button class="btn btn-info mr-2" type="submit">Edit</button>
-                    </form>
-                    <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
-                        <input type="hidden" name="BurialId" value="@b.BurialId" />
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
-                </div>
+            <div class="btn-toolbar float-right">
+                <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+                    <input type="hidden" name="BurialId" value="@b.BurialId" />
+                    <button class="btn btn-info mr-2" type="submit">Edit</button>
+                </form>
+                <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
+                    <input type="hidden" name="BurialId" value="@b.BurialId" />
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
             </div>
         </div>
+    </div>
     <br />
+
+    <form method="post" asp-action="UploadPhotos">
+        <input type="hidden" name="burialId" value="@b.BurialId" />
+        <button class="btn btn-danger" type="submit">Upload Photo</button>
+    </form>
 
 }
 <div page-info="@Model.PageNumberingInfo"

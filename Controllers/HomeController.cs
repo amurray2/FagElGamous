@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using FagElGamous.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using FagElGamous.Services;
 
 namespace FagElGamous.Controllers
 {
@@ -16,11 +17,13 @@ namespace FagElGamous.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private FagElGamousContext context;
+        private readonly IS3Service _s3storage;
 
-        public HomeController(ILogger<HomeController> logger, FagElGamousContext con)
+        public HomeController(ILogger<HomeController> logger, FagElGamousContext con, IS3Service storage)
         {
             _logger = logger;
             context = con;
+            _s3storage = storage;
         }
 
         public IActionResult Index()
@@ -233,6 +236,51 @@ namespace FagElGamous.Controllers
             context.Remove(burial);
             //context.SaveChanges();
             return RedirectToAction("Burial");
+        }
+
+        //UPLOAD PHOTOS//
+        [HttpPost]
+        public IActionResult UploadPhotos(int burialId)
+        {
+            Burial burial = context.Burial.Find(burialId);
+
+            return View(new SavePhotoViewModel
+            {
+                Burial = burial
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SavePhotos(SavePhotoViewModel SavePhoto, int burialId)
+        {
+
+            
+            if (ModelState.IsValid)
+            {
+                string url = await _s3storage.AddItem(SavePhoto.PhotoFile, "test");
+                Burial burial_to_add = context.Burial.Find(burialId);
+
+                Photos FileRecord = new Photos
+                {
+                    PhotoUrl = url,
+                    Burial = burial_to_add,
+                    BurialId = burial_to_add.BurialId
+                };
+
+                context.Add(FileRecord);
+                context.SaveChanges();
+                return View("Index");
+            }
+            else
+            {
+                return View("ErrorBurial");
+            }
+        }
+
+        //Display Photos//
+        public IActionResult DisplayUploads()
+        {
+            return View(context.Photos);
         }
 
         //Location action methods
