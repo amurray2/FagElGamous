@@ -47,8 +47,20 @@ namespace FagElGamous
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //authenticating with google
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
+
             services.AddAuthorization(options =>
             {
+
                 //access for researcher
                 options.AddPolicy("researcherPolicy",
                     builder => builder.RequireRole("SuperUser", "Researcher", "User"));

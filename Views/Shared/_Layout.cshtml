@@ -53,8 +53,10 @@
 
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
-                                {
+                                //uncomment this for final depployment
+                                //this is so we can make the base super user
+                                //@if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                                //{
                                     <li class="dropdown nav-item">
                                         <a class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" href="#">
                                        Manage
@@ -69,7 +71,7 @@
                                           </li>
                                         </ul>
                                       </li>
-                                }
+                               //}
                             }
                             <partial name="_LoginPartial" />
 
