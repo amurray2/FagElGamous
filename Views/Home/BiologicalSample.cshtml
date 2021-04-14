@@ -9,6 +9,10 @@
 
 <br />
 <br />
+<form method="get" asp-controller="Home" asp-action="SingleBurial">
+    <input type="hidden" value="@Model.Burial.BurialId" name="BurialId" />
+    <button type="submit" style="font-size:18px" class="btn btn-secondary"><i class="fa fa-arrow-circle-left"></i> Burial Details</button>
+</form>
 <div class="text-center">
     <h1>Biological Samples</h1>
     <h3>@Model.Location.LocationString #@Model.Burial.BurialNumber</h3>
