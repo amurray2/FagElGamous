@@ -268,9 +268,10 @@ namespace FagElGamous.Controllers
                 string url = await _s3storage.AddItem(SavePhoto.PhotoFile, "test");
                 Burial burial_to_add = context.Burial.Find(burialId);
 
-                Photos FileRecord = new Photos
+                Files FileRecord = new Files
                 {
-                    PhotoUrl = url,
+                    FileUrl = url,
+                    Type = SavePhoto.Type,
                     Burial = burial_to_add,
                     BurialId = burial_to_add.BurialId
                 };
@@ -288,7 +289,7 @@ namespace FagElGamous.Controllers
         //Display Photos//
         public IActionResult DisplayUploads()
         {
-            return View(context.Photos);
+            return View(context.Files);
         }
 
         //Location action methods

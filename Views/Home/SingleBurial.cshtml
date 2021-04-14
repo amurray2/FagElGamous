@@ -92,30 +92,34 @@
     </div>
 
 <!--Buttons to view additional information about burial-->
-<div>
-    <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
-        <input type="hidden" name="BurialId" value="@Model.BurialId" />
-        <button class="btn btn-secondary" type="submit">Artifacts</button>
-    </form>
-    <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
-        <input type="hidden" name="BurialId" value="@Model.BurialId" />
-        <button class="btn btn-secondary" type="submit">Biological Samples</button>
-    </form>
-    <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
-        <input type="hidden" name="BurialId" value="@Model.BurialId" />
-        <button class="btn btn-secondary" type="submit">C14 Samples</button>
-    </form>
-
-    <div class="btn-toolbar float-right">
-        <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+    <div>
+        <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
             <input type="hidden" name="BurialId" value="@Model.BurialId" />
-            <button class="btn btn-info mr-2" type="submit">Edit</button>
+            <button class="btn btn-secondary" type="submit">Artifacts</button>
         </form>
-        <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
+        <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
             <input type="hidden" name="BurialId" value="@Model.BurialId" />
-            <button class="btn btn-danger" type="submit">Delete</button>
+            <button class="btn btn-secondary" type="submit">Biological Samples</button>
+        </form>
+        <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
+            <input type="hidden" name="BurialId" value="@Model.BurialId" />
+            <button class="btn btn-secondary" type="submit">C14 Samples</button>
+        </form>
+
+        <div class="btn-toolbar float-right">
+            <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+                <input type="hidden" name="BurialId" value="@Model.BurialId" />
+                <button class="btn btn-info mr-2" type="submit">Edit</button>
+            </form>
+            <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
+                <input type="hidden" name="BurialId" value="@Model.BurialId" />
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </div>
+        <form method="post" asp-action="UploadPhotos">
+            <input type="hidden" name="burialId" value="@Model.BurialId" />
+            <button class="btn btn-danger" type="submit">Upload Photo</button>
         </form>
     </div>
-</div>
 </div>
 <br />
