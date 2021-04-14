@@ -163,7 +163,6 @@
 
     <!--Display all of the photos-->
     <div class="col text-center">
-        <h3>Photos</h3><br />
         @foreach (var f in Model.Files)
         {
             @if (f.Type == "Photo")
@@ -177,7 +176,6 @@
 
     <!--Display all of the fieldbooks-->
     <div class="col text-center">
-        <h3>Field Books</h3><br />
         @foreach (var f in Model.Files)
         {
             @if (f.Type == "FieldBook")
