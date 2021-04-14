@@ -109,14 +109,23 @@
         </form>
 
         <div class="btn-toolbar float-right">
-            <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
-                <input type="hidden" name="BurialId" value="@Model.BurialId" />
-                <button class="btn btn-info mr-2" type="submit">Edit</button>
-            </form>
-            <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
-                <input type="hidden" name="BurialId" value="@Model.BurialId" />
-                <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+            {
+                <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+                    <input type="hidden" name="BurialId" value="@Model.BurialId" />
+                    <button class="btn btn-info mr-2" type="submit">Edit</button>
+                </form>
+            }
+
+
+            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+            {
+                <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
+                    <input type="hidden" name="BurialId" value="@Model.BurialId" />
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            }
+
         </div>
     </div>
 </div>
