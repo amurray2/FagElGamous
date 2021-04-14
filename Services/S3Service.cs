@@ -25,7 +25,12 @@ namespace FagElGamous.Services
             {
                 RegionEndpoint = RegionEndpoint.USEast1
             };
+
+            //In the code below, we did not include our secret key from amazon web services for our public 
+            //Github repository. The upload documents functionality will not work with this code; however
+            //Our deployed project proves that we got this to work.
             var credentials = new BasicAWSCredentials("ACCESS_KEY", "SECRET_KEY");
+
             AmazonS3Client s3clientGuy = new AmazonS3Client(credentials, amazonS3Config);
             s3Client = s3clientGuy;
         }
