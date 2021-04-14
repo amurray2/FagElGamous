@@ -286,10 +286,16 @@ namespace FagElGamous.Controllers
             }
         }
 
-        //Display Photos//
-        public IActionResult DisplayUploads()
+        //Display All Photos//
+        public IActionResult DisplayPhotos()
         {
-            return View(context.Files);
+            return View(context.Files.Where(p => p.Type == "Photo"));
+        }
+
+        //Display All FieldBooks//
+        public IActionResult DisplayFieldBooks()
+        {
+            return View(context.Files.Where(f => f.Type == "FieldBook"));
         }
 
         //Location action methods
