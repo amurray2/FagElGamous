@@ -156,7 +156,9 @@
 
         <button class="btn btn-secondary" type="submit">Upload</button>
     </form>
-<div asp-validation-summary="All"></div>
+
+    <div asp-validation-summary="All"></div>
+
 }
 <br />
 
@@ -170,7 +172,15 @@
             {
                 <img src="@f.FileUrl" width="500" />
                 <br />
-                <br />
+                @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                { 
+                    <br />
+                    <form method="post" asp-action="DeleteFiles">
+                        <input type="hidden" value="@f.FileId" name="FileId" />
+                        <button class="btn btn-secondary" type="submit">Remove</button>
+                    </form>
+                    <br />
+                }
             }
         }
     </div>
@@ -182,8 +192,16 @@
             @if (f.Type == "FieldBook")
             {
                 <a class="nav-link text-dark" href="@f.FileUrl" download target="_blank">FieldBook @f.FileId</a>
-                <br />
-            }
+
+                @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                { 
+                    <form method="post" asp-action="DeleteFiles">
+                        <input type="hidden" value="@f.FileId" name="FileId" />
+                        <button class="btn btn-secondary" type="submit">Remove</button>
+                    </form>
+                    <br />
+                 }
+             }
         }
     </div>
     <br />

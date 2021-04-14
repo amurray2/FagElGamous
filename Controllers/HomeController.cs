@@ -297,6 +297,18 @@ namespace FagElGamous.Controllers
         {
             return View(context.Files.Where(f => f.Type == "FieldBook"));
         }
+        //Delete Files//
+        [HttpPost]
+        public IActionResult DeleteFiles(int FileId)
+        {
+            Files file = context.Files.Single(f => f.FileId == FileId);
+            int BurialId = file.BurialId;
+            context.Files.Remove(file);
+
+            context.SaveChanges();
+
+            return RedirectToAction("SingleBurial", new { BurialId = BurialId });
+        }
 
         //Location action methods
         [Authorize(Policy = "researcherPolicy")]

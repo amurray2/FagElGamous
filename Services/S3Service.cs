@@ -18,17 +18,19 @@ namespace FagElGamous.Services
         private const string BUCKET_NAME = "arn:aws:s3:us-east-1:168880487690:accesspoint/uploads";
         private const string FOLDER_NAME = "Uploads";
         private const double DURATION = 24;
-
+        
         public S3Service()
         {
             var amazonS3Config = new AmazonS3Config
             {
                 RegionEndpoint = RegionEndpoint.USEast1
             };
+
             //In the code below, we did not include our secret key from amazon web services for our public 
             //Github repository. The upload documents functionality will not work with this code; however
             //Our deployed project proves that we got this to work.
-            var credentials = new BasicAWSCredentials("SECRET_KEY", "CREDENTIAL_INFORMATION");
+            var credentials = new BasicAWSCredentials("ACCESS_KEY", "SECRET_KEY");
+
             AmazonS3Client s3clientGuy = new AmazonS3Client(credentials, amazonS3Config);
             s3Client = s3clientGuy;
         }
