@@ -1,8 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.AspNetCore.Identity
+@using FagElGamous.Areas.Identity.Data
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<FagElGamousUser> SignInManager
+@inject UserManager<FagElGamousUser> UserManager
+
 @model Burial
 <div class="card card-outline-primary m-3 p-5 card mb-3">
     <h3 class="text-center font-weight-bold">@Model.Location.LocationString #@Model.BurialNumber</h3>
@@ -10,112 +12,112 @@
 
     <div class="row">
         <!--Info about each burial inside bootstrap card-->
-<div class="col">
-    <br />
-    <h5>Metrics</h5>
-    <p>South to Head: @Model.SouthToHead meters </p>
-    <p>South to Feet: @Model.SouthToFeet meters </p>
-    <p>West to Head: @Model.WestToHead meters </p>
-    <p>West to Feet: @Model.WestToFeet meters </p>
-    <p>Burial Depth: @Model.BurialDepth meters </p>
-    <p>Length of Remains: @Model.LengthOfRemains meters </p>
-    <br />
-</div>
-<div class="col">
-    <br />
-    <h5>Observation</h5>
-    <p>Photo</p>
-    @if (Model.ArtifactFound == true)
-    {
-        <p>Artifact Found: Yes</p>
-    }
-    else
-    {
-        <p>Artifact Found: No</p>
-    }
-    <br />
-</div>
+        <div class="col">
+            <br />
+            <h5>Metrics</h5>
+            <p>South to Head: @Model.SouthToHead meters </p>
+            <p>South to Feet: @Model.SouthToFeet meters </p>
+            <p>West to Head: @Model.WestToHead meters </p>
+            <p>West to Feet: @Model.WestToFeet meters </p>
+            <p>Burial Depth: @Model.BurialDepth meters </p>
+            <p>Length of Remains: @Model.LengthOfRemains meters </p>
+            <br />
+        </div>
+        <div class="col">
+            <br />
+            <h5>Observation</h5>
+            <p>Photo</p>
+            @if (Model.ArtifactFound == true)
+            {
+                <p>Artifact Found: Yes</p>
+            }
+            else
+            {
+                <p>Artifact Found: No</p>
+            }
+            <br />
+        </div>
 
-<div class="col">
-    <br />
-    <h5>Additional Information</h5>
-    @if (Model.HeadDirection == "W")
-    {
-        <p>Head Direction: West</p>
-    }
-    else if (Model.HeadDirection == "E")
-    {
-        <p>Head Direction: East</p>
-    }
-    else
-    {
-        <p>Head Direction: No Head Direction Recorded</p>
-    }
-    <p>Hair Color: @Model.HairColor</p>
+        <div class="col">
+            <br />
+            <h5>Additional Information</h5>
+            @if (Model.HeadDirection == "W")
+            {
+                <p>Head Direction: West</p>
+            }
+            else if (Model.HeadDirection == "E")
+            {
+                <p>Head Direction: East</p>
+            }
+            else
+            {
+                <p>Head Direction: No Head Direction Recorded</p>
+            }
+            <p>Hair Color: @Model.HairColor</p>
 
-    @if (Model.AgeCodeSingle == "C")
-    {
-        <p>Age: Child</p>
-    }
-    else if (Model.AgeCodeSingle == "A")
-    {
-        <p>Age: Adult</p>
-    }
-    else if (Model.AgeCodeSingle == "N/I")
-    {
-        <p>Age: Neonate/Infant</p>
-    }
-    else
-    {
-        <p>Age: No age recorded</p>
-    }
+            @if (Model.AgeCodeSingle == "C")
+            {
+                <p>Age: Child</p>
+            }
+            else if (Model.AgeCodeSingle == "A")
+            {
+                <p>Age: Adult</p>
+            }
+            else if (Model.AgeCodeSingle == "N/I")
+            {
+                <p>Age: Neonate/Infant</p>
+            }
+            else
+            {
+                <p>Age: No age recorded</p>
+            }
 
 
-    @if (Model.TextileTaken == true)
-    {
-        <p>Textile Taken: Yes</p>
-    }
-    else
-    {
-        <p>Textile Taken: No</p>
-    }
-    <p>Initials of Data Entry Expert: @Model.InitialsOfDataEntryExpert</p>
-    @if (Model.MonthFound == null)
-    {
-        <p>Date Found: No date recorded</p>
-    }
-    else
-    {
-        <p>Date Found: @Model.MonthFound/@Model.DayFound/@Model.YearFound</p>
-    }
-</div>
+            @if (Model.TextileTaken == true)
+            {
+                <p>Textile Taken: Yes</p>
+            }
+            else
+            {
+                <p>Textile Taken: No</p>
+            }
+            <p>Initials of Data Entry Expert: @Model.InitialsOfDataEntryExpert</p>
+            @if (Model.MonthFound == null)
+            {
+                <p>Date Found: No date recorded</p>
+            }
+            else
+            {
+                <p>Date Found: @Model.MonthFound/@Model.DayFound/@Model.YearFound</p>
+            }
+        </div>
     </div>
 
-<!--Buttons to view additional information about burial-->
-<div>
-    <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
-        <input type="hidden" name="BurialId" value="@Model.BurialId" />
-        <button class="btn btn-secondary" type="submit">Artifacts</button>
-    </form>
-    <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
-        <input type="hidden" name="BurialId" value="@Model.BurialId" />
-        <button class="btn btn-secondary" type="submit">Biological Samples</button>
-    </form>
-    <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
-        <input type="hidden" name="BurialId" value="@Model.BurialId" />
-        <button class="btn btn-secondary" type="submit">C14 Samples</button>
-    </form>
+    <!--Buttons to view additional information about burial-->
+    <div>
+        <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
+            <input type="hidden" name="BurialId" value="@Model.BurialId" />
+            <button class="btn btn-secondary" type="submit">Artifacts</button>
+        </form>
+        <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
+            <input type="hidden" name="BurialId" value="@Model.BurialId" />
+            <button class="btn btn-secondary" type="submit">Biological Samples</button>
+        </form>
+        <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
+            <input type="hidden" name="BurialId" value="@Model.BurialId" />
+            <button class="btn btn-secondary" type="submit">C14 Samples</button>
+        </form>
 
-    <div class="btn-toolbar float-right">
-        <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@Model.BurialId" />
-            <button class="btn btn-info mr-2" type="submit">Edit</button>
-        </form>
-        <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@Model.BurialId" />
-            <button class="btn btn-danger" type="submit">Delete</button>
-        </form>
+        <div class="btn-toolbar float-right">
+            <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+                <input type="hidden" name="BurialId" value="@Model.BurialId" />
+                <button class="btn btn-info mr-2" type="submit">Edit</button>
+            </form>
+            <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
+                <input type="hidden" name="BurialId" value="@Model.BurialId" />
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 <br />
