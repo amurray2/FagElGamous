@@ -40,15 +40,6 @@ namespace FagElGamous.Controllers
         [HttpGet]
         public IActionResult Filter(int LocationId, string Age, string HeadDirection, int pageNum = 1)
         {
-            //if (Age == "All")
-            //{
-            //    Age = null;
-            //}
-            //if (HeadDirection == "All")
-            //{
-            //    Age = null;
-            //}
-            //ViewBag.LocationId = LocationId;
             int pageSize = 1;
             IQueryable<Burial> burials;
             if (LocationId != 0 && Age == "All" && HeadDirection == "All")
@@ -168,7 +159,8 @@ namespace FagElGamous.Controllers
                 }
             }
             context.SaveChanges();
-            return View("SuccessBurial");
+            Burial lastBurial = context.Burial.OrderByDescending(b => b.BurialId).First();
+            return RedirectToAction("SingleBurial", new { BurialId = lastBurial.BurialId });
         }
         [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
