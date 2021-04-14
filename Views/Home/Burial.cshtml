@@ -20,8 +20,8 @@
 
             <div class="form-group">
                 <label name="LocationId">Location</label>
-                <select class="form-control" name="LocationId">
-                    <option value="" selected disabled>All</option>
+                <select class="form-control js-example-basic-single search" name="LocationId">
+                    <option value="" selected>All</option>
                     @foreach (Location l in Model.Locations)
                     {
                         <option value="@l.LocationId">@l.LocationString</option>

@@ -20,8 +20,8 @@
 
             <div class="form-group">
                 <label name="Location">Location</label>
-                <select class="form-control" name="LocationId" asp-for="@Model.LocationId">
-                    <option value="" selected>Select Location</option>
+                <select class="form-control js-example-basic-single search" name="LocationId" asp-for="@Model.LocationId">
+                    <option value="" selected>All</option>
                     @foreach (Location l in Model.Locations)
                     {
                         <option value="@l.LocationId">@l.LocationString</option>
@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label name="HeadDirection">All</label>
                 <select class="form-control" name="HeadDirection" asp-for="@Model.HeadDirection">
-                    <option value="All" selected>Select Head Direction</option>
+                    <option value="All" selected>All</option>
                     <option value="E">East</option>
                     <option value="W">West</option>
                 </select>
