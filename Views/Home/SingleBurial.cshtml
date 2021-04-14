@@ -93,6 +93,7 @@
         </div>
     </div>
 
+
     <!--Buttons to view additional information about burial-->
     <div>
         <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
@@ -107,6 +108,11 @@
             <input type="hidden" name="BurialId" value="@Model.BurialId" />
             <button class="btn btn-secondary" type="submit">C14 Samples</button>
         </form>
+
+        <!--<form method="post" asp-action="UploadPhotos">
+            <input type="hidden" name="burialId" value="@Model.BurialId" />
+            <button class="btn btn-danger" type="submit">Upload Photo</button>
+        </form>-->
 
         <div class="btn-toolbar float-right">
             @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
