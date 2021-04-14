@@ -54,7 +54,7 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.ArtifactDescription)
                     .HasColumnName("artifact_description")
-                    .HasMaxLength(1)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.BurialId).HasColumnName("burial_id");
@@ -113,12 +113,12 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.AgeSkull)
                     .HasColumnName("age_skull")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.BasilarSuture)
                     .HasColumnName("basilar_suture")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.BasionBregmaHeight).HasColumnName("basion_bregma_height");
@@ -135,7 +135,7 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.CranialSuture)
                     .HasColumnName("cranial_suture")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CribraOrbitala).HasColumnName("cribra_orbitala");
@@ -148,7 +148,7 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.EpiphysealUnion)
                     .HasColumnName("epiphyseal_union")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.FemurHead).HasColumnName("femur_head");
@@ -157,7 +157,7 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.ForemanMagnum)
                     .HasColumnName("foreman_magnum")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Gonian).HasColumnName("gonian");
@@ -193,19 +193,19 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.OsteologyUnknownComment)
                     .HasColumnName("osteology_unknown_comment")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Osteophytosis)
                     .HasColumnName("osteophytosis")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ParietalBossing).HasColumnName("parietal_bossing");
 
                 entity.Property(e => e.PoroticHyperososisLocations)
                     .HasColumnName("porotic_hyperososis_locations")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.PoroticHyperostosis).HasColumnName("porotic_hyperostosis");
@@ -220,12 +220,12 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.PubicSymphysis)
                     .HasColumnName("pubic_symphysis")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Rack)
                     .HasColumnName("rack")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Robust).HasColumnName("robust");
@@ -234,7 +234,7 @@ namespace FagElGamous.Models
 
                 entity.Property(e => e.SexSkull)
                     .HasColumnName("sex_skull")
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ShelfNumber).HasColumnName("shelf_number");

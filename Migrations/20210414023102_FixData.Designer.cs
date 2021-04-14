@@ -4,14 +4,16 @@ using FagElGamous.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FagElGamous.Migrations
 {
     [DbContext(typeof(FagElGamousContext))]
-    partial class FagElGamousContextModelSnapshot : ModelSnapshot
+    [Migration("20210414023102_FixData")]
+    partial class FixData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,14 +101,14 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("AgeSkull")
                         .HasColumnName("age_skull")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<string>("BasilarSuture")
                         .HasColumnName("basilar_suture")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<double?>("BasionBregmaHeight")
@@ -135,8 +137,8 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("CranialSuture")
                         .HasColumnName("cranial_suture")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<bool?>("CribraOrbitala")
@@ -153,8 +155,8 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("EpiphysealUnion")
                         .HasColumnName("epiphyseal_union")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<double?>("FemurHead")
@@ -167,8 +169,8 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("ForemanMagnum")
                         .HasColumnName("foreman_magnum")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<int?>("Gonian")
@@ -231,14 +233,14 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("OsteologyUnknownComment")
                         .HasColumnName("osteology_unknown_comment")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<string>("Osteophytosis")
                         .HasColumnName("osteophytosis")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<int?>("ParietalBossing")
@@ -247,8 +249,8 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("PoroticHyperososisLocations")
                         .HasColumnName("porotic_hyperososis_locations")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<bool?>("PoroticHyperostosis")
@@ -273,14 +275,14 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("PubicSymphysis")
                         .HasColumnName("pubic_symphysis")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<string>("Rack")
                         .HasColumnName("rack")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<int?>("Robust")
@@ -293,8 +295,8 @@ namespace FagElGamous.Migrations
 
                     b.Property<string>("SexSkull")
                         .HasColumnName("sex_skull")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50)
+                        .HasColumnType("varchar(1)")
+                        .HasMaxLength(1)
                         .IsUnicode(false);
 
                     b.Property<int?>("ShelfNumber")

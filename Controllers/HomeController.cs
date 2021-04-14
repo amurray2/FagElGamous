@@ -40,7 +40,7 @@ namespace FagElGamous.Controllers
         [HttpGet]
         public IActionResult Filter(int LocationId, string Age, string HeadDirection, int pageNum = 1)
         {
-            int pageSize = 1;
+            int pageSize = 5;
             IQueryable<Burial> burials;
             if (LocationId != 0 && Age == "All" && HeadDirection == "All")
             {
@@ -102,7 +102,7 @@ namespace FagElGamous.Controllers
         [HttpGet]
         public IActionResult Burial(int pageNum = 1)
         {
-            int pageSize = 1;
+            int pageSize = 5;
             //IQueryable<Burial> query = context.Burial.Include(b => b.Location);
 
             return View(new SummaryPageViewModel
@@ -233,6 +233,10 @@ namespace FagElGamous.Controllers
             foreach (Bones b in context.Bones.Where(b => b.BurialId == BurialId))
             {
                 context.Remove(b);
+            }
+            foreach (Files f in context.Files.Where(f => f.BurialId == BurialId))
+            {
+                context.Remove(f);
             }
             context.SaveChanges();
 
