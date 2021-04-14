@@ -6,14 +6,36 @@
 @inject UserManager<FagElGamousUser> UserManager
 
 @model SavePhotoViewModel
-<div class="card card-outline-primary m-3 p-5 card mb-3">
-    <h3 class="text-center font-weight-bold">@Model.Burial.Location.LocationString #@Model.Burial.BurialNumber</h3>
-    <hr>
+<br />
+<br />
+<h1 class="text-center font-weight-bold">@Model.Burial.Location.LocationString #@Model.Burial.BurialNumber</h1>
+<br />
+<br />
+<div class="card card-outline-primary p-4 mb-3">
+    <div>
+        <div class="btn-toolbar float-right">
+            @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+            {
+                <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
+                    <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
+                    <button class="btn btn-info mr-2" type="submit">Edit</button>
+                </form>
+            }
 
+            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+            {
+                <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
+                    <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            }
+        </div>
+    </div>
+    <hr />
     <div class="row">
+
         <!--Info about each burial inside bootstrap card-->
         <div class="col">
-            <br />
             <h5>Metrics</h5>
             <p>South to Head: @Model.Burial.SouthToHead meters </p>
             <p>South to Feet: @Model.Burial.SouthToFeet meters </p>
@@ -24,7 +46,6 @@
             <br />
         </div>
         <div class="col">
-            <br />
             <h5>Observation</h5>
             <p>Photo</p>
             @if (Model.Burial.ArtifactFound == true)
@@ -39,7 +60,6 @@
         </div>
 
         <div class="col">
-            <br />
             <h5>Additional Information</h5>
             @if (Model.Burial.HeadDirection == "W")
             {
@@ -93,80 +113,81 @@
         </div>
     </div>
 
-
-    <!--Buttons to view additional information about burial-->
-    <div>
-        <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
-            <button class="btn btn-secondary" type="submit">Artifacts</button>
-        </form>
-        <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
-            <button class="btn btn-secondary" type="submit">Biological Samples</button>
-        </form>
-        <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
-            <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
-            <button class="btn btn-secondary" type="submit">C14 Samples</button>
-        </form>
-
-        <form method="post" asp-action="SavePhotos" enctype="multipart/form-data">
-            <input type="hidden" id="burialId" name="burialId" value="@Model.Burial.BurialId" />
-            <label asp-for="PhotoFile">Upload Photo</label>
-            <input type="file" asp-for="PhotoFile" />
-
-            <label asp-for="Type" />Type</label>
-            <select asp-for="Type">
-                <option value="Photo" selected>Photo</option>
-                <option value="FieldBook">FieldBook</option>
-            </select>
-
-
-            <button class="btn btn-primary" type="submit">Upload</button>
-        </form>
-        <div asp-validation-summary="All"></div>
-
-        <div class="btn-toolbar float-right">
-            @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
-            {
-                <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
-                    <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
-                    <button class="btn btn-info mr-2" type="submit">Edit</button>
-                </form>
-            }
-
-
-            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
-            {
-                <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
-                    <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                </form>
-            }
-
-        </div>
-    </div>
 </div>
-<!--Display all of the photos-->
+
+<!--Buttons to view additional information about burial-->
 <div>
-    @foreach (var f in Model.Files)
-    {
-        @if (f.Type == "Photo")
-        {
-            <img src="@f.FileUrl" width="500" />
-            <p>@f.Type</p>
-        }
-    }
+    <form style="display:inline-block" method="get" asp-action="Artifact" asp-controller="Home">
+        <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
+        <button class="btn btn-secondary" type="submit">Artifacts</button>
+    </form>
+    <form style="display:inline-block" method="get" asp-action="BiologicalSample" asp-controller="Home">
+        <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
+        <button class="btn btn-secondary" type="submit">Biological Samples</button>
+    </form>
+    <form style="display:inline-block" method="get" asp-action="C14Sample" asp-controller="Home">
+        <input type="hidden" name="BurialId" value="@Model.Burial.BurialId" />
+        <button class="btn btn-secondary" type="submit">C14 Samples</button>
+    </form>
 </div>
 
-<!--Display all of the fieldbooks-->
-<div>
-    @foreach (var f in Model.Files)
-    {
-        @if (f.Type == "FieldBook")
-        {
-            <a href="@f.FileUrl" download target="_blank">FieldBook @f.FileId</a>
-            <p>@f.Type</p>
-        }
-    }
-</div>
 <br />
+<br />
+<h3 class="text-center">Additional Documents</h3>
+<br />
+
+<form method="post" asp-action="SavePhotos" enctype="multipart/form-data">
+
+    <div class="custom-file col-3">
+        <input type="hidden" id="burialId" name="burialId" value="@Model.Burial.BurialId" />
+        <label class="custom-file-label" asp-for="PhotoFile">Upload Document</label> <br />
+        <input class="custom-file-input" type="file" asp-for="PhotoFile" />
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Type">Type</label>
+        <select class="form-control col-3" asp-for="Type">
+            <option value="Photo" selected>Photo</option>
+            <option value="FieldBook">FieldBook</option>
+        </select>
+    </div>
+
+
+    <button class="btn btn-secondary" type="submit">Upload</button>
+</form>
+<div asp-validation-summary="All"></div>
+<br />
+
+<div class="row">
+
+    <!--Display all of the photos-->
+    <div class="col text-center">
+        <h3>Photos</h3><br />
+        @foreach (var f in Model.Files)
+        {
+            @if (f.Type == "Photo")
+            {
+                <img src="@f.FileUrl" width="500" />
+                <br />
+                <br />
+            }
+        }
+    </div>
+
+    <!--Display all of the fieldbooks-->
+    <div class="col text-center">
+        <h3>Field Books</h3><br />
+        @foreach (var f in Model.Files)
+        {
+            @if (f.Type == "FieldBook")
+            {
+                <a class="nav-link text-dark" href="@f.FileUrl" download target="_blank">FieldBook @f.FileId</a>
+                <br />
+            }
+        }
+    </div>
+    <br />
+
+</div>
+
