@@ -11,5 +11,7 @@ namespace FagElGamous.Models.ViewModels
         public IFormFile PhotoFile { get; set; }
         public string Type { get; set; }
         public Burial Burial { get; set; }
+
+        public IQueryable<Files> Files { get; set; }
     }
 }
