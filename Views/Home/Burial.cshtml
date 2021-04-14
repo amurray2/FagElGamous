@@ -6,107 +6,140 @@
 @inject UserManager<FagElGamousUser> UserManager
 
 @model SummaryPageViewModel
-@*Not Exactly Sure What we need to put on this page but probably just the majority of the Essential Exhumation Data.*@
+<br />
+<br />
+<h1 class="text-center">View Burials</h1>
 <br />
 <br />
 
-<form method="get" asp-controller="Home" asp-action="Filter">
-    <label name="LocationId">Location</label>
-    <select name="LocationId">
-        <option value="" selected disabled>All</option>
-        @foreach (Location l in Model.Locations)
-        {
-            <option value="@l.LocationId">@l.LocationString</option>
-        }
-    </select>
-    <label name="Age">Age</label>
-    <select name="Age">
-        <option value="All" selected>All</option>
-        <option value="A">A (Adult)</option>
-        <option value="C">C (Child)</option>
-        <option value="N/I">NI (Neonate/Infant)</option>
-    </select>
-    <label name="HeadDirection">Head Direction</label>
-    <select name="HeadDirection">
-        <option value="All" selected>All</option>
-        <option value="E">E (East)</option>
-        <option value="W">W (West)</option>
-    </select>
-    <button type="submit">Filter</button>
-</form>
-<h1 class="text-center">Burials</h1>
-<br />
-@foreach (var b in Model.Burials)
-{
-    <div class="card card-outline-primary m-3 p-5 card mb-3">
-        <h3 class="text-center font-weight-bold">@b.Location.LocationString #@b.BurialNumber</h3>
-        <hr>
-        <br />
-        @if (b.AgeCodeSingle == "C")
-        {
-            <p>Age: Child</p>
-        }
-        else if (b.AgeCodeSingle == "A")
-        {
-            <p>Age: Adult</p>
-        }
-        else if (b.AgeCodeSingle == "N/I")
-        {
-            <p>Age: Neonate/Infant</p>
-        }
-        else
-        {
-            <p>Age: No age recorded</p>
-        }
-        @if (b.HeadDirection == "W")
-        {
-            <p>Head Direction: West</p>
-        }
-        else if (b.HeadDirection == "E")
-        {
-            <p>Head Direction: East</p>
-        }
-        else
-        {
-            <p>Head Direction: No Head Direction Recorded</p>
-        }
+<div class="row">
 
+    <!--Filter form-->
+    <div class="col-3">
+        <form method="get" asp-controller="Home" asp-action="Filter">
 
-
-        <!--Buttons to view additional information about burial-->
-        <div>
-            <form style="display:inline-block" method="get" asp-action="SingleBurial" asp-controller="Home">
-                <input type="hidden" name="BurialId" value="@b.BurialId" />
-                <button class="btn btn-secondary" type="submit">More Details</button>
-            </form>
-             
-            <div class="btn-toolbar float-right">
-                @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
-                {
-                    <form style="display:inline-block" class="float-right" method="get" asp-action="EditBurial" asp-controller="Home">
-                        <input type="hidden" name="BurialId" value="@b.BurialId" />
-                        <button class="btn btn-info mr-2" type="submit">Edit</button>
-                    </form>
-                }
-
-                @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
-                {
-                    <form style="display:inline-block" class="float-right" method="post" asp-action="DeleteBurial" asp-controller="Home">
-                        <input type="hidden" name="BurialId" value="@b.BurialId" />
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
-                }
+            <div class="form-group">
+                <label name="LocationId">Location</label>
+                <select class="form-control" name="LocationId">
+                    <option value="" selected disabled>All</option>
+                    @foreach (Location l in Model.Locations)
+                    {
+                        <option value="@l.LocationId">@l.LocationString</option>
+                    }
+                </select>
             </div>
+
+            <div class="form-group">
+                <label name="Age">Age</label>
+                <select class="form-control" name="Age">
+                    <option value="All" selected>All</option>
+                    <option value="A">Adult</option>
+                    <option value="C">Child</option>
+                    <option value="N/I">Neonate/Infant</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label name="HeadDirection">Head Direction</label>
+                <select class="form-control" name="HeadDirection">
+                    <option value="All" selected>All</option>
+                    <option value="E">East</option>
+                    <option value="W">West</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" type="submit">Filter</button>
+        </form>
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="col-8">
+        @foreach (var b in Model.Burials)
+        {
+            <div class="card card-outline-primary p-4 card">
+                <div class="row">
+                    <h4 class="col">@b.Location.LocationString #@b.BurialNumber</h4>
+
+                    <div class="col">
+                        <div class="btn-toolbar float-right">
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "researcherPolicy")).Succeeded)
+                            {
+                                <form method="get" asp-action="EditBurial" asp-controller="Home">
+                                    <input type="hidden" name="BurialId" value="@b.BurialId" />
+                                    <button class="btn btn-info mr-2" type="submit">Edit</button>
+                                </form>
+                            }
+
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "adminPolicy")).Succeeded)
+                            {
+                                <form method="post" asp-action="DeleteBurial" asp-controller="Home">
+                                    <input type="hidden" name="BurialId" value="@b.BurialId" />
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                @if (b.AgeCodeSingle == "C")
+                {
+                    <p>Age: Child</p>
+                }
+                else if (b.AgeCodeSingle == "A")
+                {
+                    <p>Age: Adult</p>
+                }
+                else if (b.AgeCodeSingle == "N/I")
+                {
+                    <p>Age: Neonate/Infant</p>
+                }
+                else
+                {
+                    <p>Age: No age recorded</p>
+                }
+                @if (b.HeadDirection == "W")
+                {
+                    <p>Head Direction: West</p>
+                }
+                else if (b.HeadDirection == "E")
+                {
+                    <p>Head Direction: East</p>
+                }
+                else
+                {
+                    <p>Head Direction: No Head Direction Recorded</p>
+                }
+
+
+
+                <!--Buttons to view additional information about burial-->
+                <div>
+                    <div style="display:flex; align-items:flex-end; flex-direction:column;">
+                        <form style="display:inline-block" method="get" asp-action="SingleBurial" asp-controller="Home">
+                            <input type="hidden" name="BurialId" value="@b.BurialId" />
+                            <button class="btn btn-secondary" type="submit">More Details</button>
+                        </form>
+                    </div>
+
+                    <!--<form method="post" asp-action="UploadPhotos">
+                        <input type="hidden" name="burialId" value="@b.BurialId" />
+                        <button class="btn btn-danger" type="submit">Upload Photo</button>
+                    </form>-->
+
+                </div>
+            </div>
+            <br />
+        }
+
+        <div page-info="@Model.PageNumberingInfo"
+             page-action="Burial"
+             page-classes-enabled="true"
+             page-class="btn mr-2 ml-2"
+             page-class-normal="btn-outline-dark mr-2 ml-2"
+             page-class-selected="btn-info mr-2 ml-2">
+
         </div>
     </div>
-    <br />
-}
-
-<div page-info="@Model.PageNumberingInfo"
-     page-action="Burial"
-     page-classes-enabled="true"
-     page-class="btn"
-     page-class-normal="btn-outline-dark"
-     page-class-selected="btn-primary">
-
 </div>
