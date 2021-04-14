@@ -26,7 +26,7 @@
     <div class="row">
         <div class="form-group col">
             <label name="LocationId">Burial Location</label>
-            <select class="form-control" name="LocationId" required>
+            <select class="form-control js-example-basic-single search" name="LocationId" required>
                 @foreach (var l in Model.Location)
                 {
                     <option value="@l.LocationId">@l.LocationString</option>
@@ -132,8 +132,6 @@
             <option value="W">West</option>
         </select>
     </div>
-
-    <label>Upload Photo (feature coming soon)</label>
     <br />
     <br />
 

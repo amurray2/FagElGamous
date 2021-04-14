@@ -72,8 +72,8 @@ namespace FagElGamous.Controllers
             }
             else
             {
-                burials = context.Burial;
-                //return RedirectToAction("Burial");
+                //burials = context.Burial;
+                return RedirectToAction("Burial");
             }
             //burials = context.Burial.Where(b => b.LocationId == LocationId);
 
@@ -204,7 +204,7 @@ namespace FagElGamous.Controllers
             }
             context.SaveChanges();
             //Might be good to do a changes made success page.
-            return RedirectToAction("Burial");
+            return RedirectToAction("SingleBurial",  new {BurialId = BurialId});
         }
         [Authorize(Policy = "adminPolicy")]
         [HttpPost]
