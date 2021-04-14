@@ -18,14 +18,14 @@ namespace FagElGamous.Services
         private const string BUCKET_NAME = "arn:aws:s3:us-east-1:168880487690:accesspoint/uploads";
         private const string FOLDER_NAME = "Uploads";
         private const double DURATION = 24;
-
+        
         public S3Service()
         {
             var amazonS3Config = new AmazonS3Config
             {
                 RegionEndpoint = RegionEndpoint.USEast1
             };
-            var credentials = new BasicAWSCredentials("AKIASOUQPXUFJW4XVNER", "BZMz7AaWu8fll0xp9i+pmuWLi3xSQLRntgmwjpRq");
+            var credentials = new BasicAWSCredentials("ACCESS_KEY", "SECRET_KEY");
             AmazonS3Client s3clientGuy = new AmazonS3Client(credentials, amazonS3Config);
             s3Client = s3clientGuy;
         }
