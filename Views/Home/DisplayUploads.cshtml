@@ -4,11 +4,12 @@
 @{
 }
 
-@model IQueryable<Photos>
+@model IQueryable<Files>
 
 @foreach (var p in Model)
 {
-    <p>@p.PhotoId</p>
-    <img src="@p.PhotoUrl" width="500"/>
+    <p>@p.FileId</p>
+    <img src="@p.FileUrl" width="500"/>
+    <p>@p.Type</p>
     <p>@p.BurialId</p>
 }

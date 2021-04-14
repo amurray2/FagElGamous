@@ -40,15 +40,6 @@ namespace FagElGamous.Controllers
         [HttpGet]
         public IActionResult Filter(int LocationId, string Age, string HeadDirection, int pageNum = 1)
         {
-            //if (Age == "All")
-            //{
-            //    Age = null;
-            //}
-            //if (HeadDirection == "All")
-            //{
-            //    Age = null;
-            //}
-            //ViewBag.LocationId = LocationId;
             int pageSize = 1;
             IQueryable<Burial> burials;
             if (LocationId != 0 && Age == "All" && HeadDirection == "All")
@@ -136,7 +127,11 @@ namespace FagElGamous.Controllers
         public IActionResult SingleBurial(int BurialId)
         {
             Burial b = context.Burial.Include(b => b.Location).Single(b => b.BurialId == BurialId);
-            return View(b);
+            return View(new SavePhotoViewModel
+            {
+                Burial = b,
+                Files = context.Files.Where(f => f.BurialId == BurialId)
+            });
         }
 
         [Authorize(Policy = "researcherPolicy")]
@@ -168,7 +163,8 @@ namespace FagElGamous.Controllers
                 }
             }
             context.SaveChanges();
-            return View("SuccessBurial");
+            Burial lastBurial = context.Burial.OrderByDescending(b => b.BurialId).First();
+            return RedirectToAction("SingleBurial", new { BurialId = lastBurial.BurialId });
         }
         [Authorize(Policy = "researcherPolicy")]
         [HttpGet]
@@ -268,16 +264,17 @@ namespace FagElGamous.Controllers
                 string url = await _s3storage.AddItem(SavePhoto.PhotoFile, "test");
                 Burial burial_to_add = context.Burial.Find(burialId);
 
-                Photos FileRecord = new Photos
+                Files FileRecord = new Files
                 {
-                    PhotoUrl = url,
+                    FileUrl = url,
+                    Type = SavePhoto.Type,
                     Burial = burial_to_add,
                     BurialId = burial_to_add.BurialId
                 };
 
                 context.Add(FileRecord);
                 context.SaveChanges();
-                return View("Index");
+                return RedirectToAction("SingleBurial", new { BurialId = burialId });
             }
             else
             {
@@ -288,7 +285,7 @@ namespace FagElGamous.Controllers
         //Display Photos//
         public IActionResult DisplayUploads()
         {
-            return View(context.Photos);
+            return View(context.Files);
         }
 
         //Location action methods

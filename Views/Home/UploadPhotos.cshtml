@@ -11,6 +11,13 @@
         <label asp-for="PhotoFile">Upload Photo</label>
         <input type="file" asp-for="PhotoFile" />
 
+        <label asp-for="Type" />Type</label>
+        <select asp-for="Type">
+            <option value="Photo" selected>Photo</option>
+            <option value="FieldBook">FieldBook</option>
+        </select>
+
+
         <button class="btn btn-primary" type="submit">Save Photo</button>
     </form>
     <div asp-validation-summary="All"></div>

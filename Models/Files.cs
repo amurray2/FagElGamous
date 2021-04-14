@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace FagElGamous.Models
 {
-    public partial class FieldBooks
+    public partial class Files
     {
         [Key]
-        public int FieldBookId { get; set; }
+        public int FileId { get; set; }
         public int BurialId { get; set; }
-        public string FieldBookUrl { get; set; }
+        public string FileUrl { get; set; }
+
+        public string Type { get; set; }
 
         public virtual Burial Burial { get; set; }
     }
