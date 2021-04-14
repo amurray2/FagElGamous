@@ -127,7 +127,11 @@ namespace FagElGamous.Controllers
         public IActionResult SingleBurial(int BurialId)
         {
             Burial b = context.Burial.Include(b => b.Location).Single(b => b.BurialId == BurialId);
-            return View(b);
+            return View(new SavePhotoViewModel
+            {
+                Burial = b,
+                Files = context.Files.Where(f => f.BurialId == BurialId)
+            });
         }
 
         [Authorize(Policy = "researcherPolicy")]
@@ -270,7 +274,7 @@ namespace FagElGamous.Controllers
 
                 context.Add(FileRecord);
                 context.SaveChanges();
-                return View("Index");
+                return RedirectToAction("SingleBurial", new { BurialId = burialId });
             }
             else
             {
